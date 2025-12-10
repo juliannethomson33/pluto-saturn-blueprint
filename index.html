@@ -3,19 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Pluto-Saturn Blueprint</title>
+    <title>Your Pluto-Saturn Blueprint | Bright Side Astrology</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="header-content">
+            <a href="https://www.youtube.com/@BrightSideAstrology" target="_blank" class="logo-link">
+                <h1 class="site-logo">✨ Bright Side Astrology</h1>
+            </a>
+            <a href="https://www.youtube.com/@BrightSideAstrology" target="_blank" class="youtube-link">
+                <svg class="youtube-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+                Subscribe on YouTube
+            </a>
+        </div>
+    </header>
+
     <div class="container">
-        <header class="hero">
-            <h1>Discover Your Cosmic Blueprint</h1>
+        <section class="hero">
+            <h2 class="page-title">Discover Your Cosmic Blueprint</h2>
             <p class="subtitle">Your Pluto-Saturn combination reveals your generation's deepest drives and path to mastery</p>
-        </header>
+        </section>
 
         <section class="year-selector" id="yearSelector">
-            <h2>Select Your Birth Year</h2>
+            <h3>Select Your Birth Year</h3>
             <div class="year-grid" id="yearGrid"></div>
             
             <div class="year-dropdown-container">
@@ -26,6 +41,7 @@
             </div>
         </section>
 
+        <!-- Results for NON-transitional years -->
         <section class="results" id="results" style="display: none;">
             <div class="result-card">
                 <h2>Your Birth Year: <span id="selectedYear"></span></h2>
@@ -44,11 +60,6 @@
                 
                 <div class="archetypal-phrase">
                     <p id="fullPhrase"></p>
-                </div>
-                
-                <div class="transition-info" id="transitionInfo" style="display: none;">
-                    <h4>Transitional Year</h4>
-                    <p id="transitionDetails"></p>
                 </div>
             </div>
             
@@ -72,9 +83,101 @@
                 </p>
             </div>
             
-            <button class="back-button" onclick="resetSelector()">Choose Different Year</button>
+            <button class="back-button" onclick="resetSelector()">← Choose Different Year</button>
+        </section>
+
+        <!-- Results for TRANSITIONAL years -->
+        <section class="results-transitional" id="resultsTransitional" style="display: none;">
+            <div class="result-card">
+                <h2>Your Birth Year: <span id="selectedYearTrans"></span></h2>
+                
+                <div class="transitional-notice">
+                    <p>⚡ <strong>This was a transitional year!</strong> Depending on what month you were born, you fall into one of these categories:</p>
+                </div>
+
+                <!-- First combination -->
+                <div class="combination-block" id="combo1">
+                    <h3 class="combo-header" id="combo1Header">If born January - March:</h3>
+                    <div class="planet-info">
+                        <div class="planet pluto">
+                            <h4>Pluto in <span id="plutoSign1"></span></h4>
+                            <p class="keyword">Wanting limitless <strong id="plutoKeyword1"></strong></p>
+                        </div>
+                        <div class="planet saturn">
+                            <h4>Saturn in <span id="saturnSign1"></span></h4>
+                            <p class="keyword">Through mastery of <strong id="saturnKeyword1"></strong></p>
+                        </div>
+                    </div>
+                    <div class="archetypal-phrase">
+                        <p id="fullPhrase1"></p>
+                    </div>
+                </div>
+
+                <!-- Second combination -->
+                <div class="combination-block" id="combo2">
+                    <h3 class="combo-header" id="combo2Header">If born April - December:</h3>
+                    <div class="planet-info">
+                        <div class="planet pluto">
+                            <h4>Pluto in <span id="plutoSign2"></span></h4>
+                            <p class="keyword">Wanting limitless <strong id="plutoKeyword2"></strong></p>
+                        </div>
+                        <div class="planet saturn">
+                            <h4>Saturn in <span id="saturnSign2"></span></h4>
+                            <p class="keyword">Through mastery of <strong id="saturnKeyword2"></strong></p>
+                        </div>
+                    </div>
+                    <div class="archetypal-phrase">
+                        <p id="fullPhrase2"></p>
+                    </div>
+                </div>
+
+                <!-- Third combination (for years with multiple shifts) -->
+                <div class="combination-block" id="combo3" style="display: none;">
+                    <h3 class="combo-header" id="combo3Header">If born September - December:</h3>
+                    <div class="planet-info">
+                        <div class="planet pluto">
+                            <h4>Pluto in <span id="plutoSign3"></span></h4>
+                            <p class="keyword">Wanting limitless <strong id="plutoKeyword3"></strong></p>
+                        </div>
+                        <div class="planet saturn">
+                            <h4>Saturn in <span id="saturnSign3"></span></h4>
+                            <p class="keyword">Through mastery of <strong id="saturnKeyword3"></strong></p>
+                        </div>
+                    </div>
+                    <div class="archetypal-phrase">
+                        <p id="fullPhrase3"></p>
+                    </div>
+                </div>
+
+                <p class="exact-note">* For exact dates, check your birth chart or consult an ephemeris. Planets can also retrograde back briefly during transitions.</p>
+            </div>
+            
+            <div class="cta-section">
+                <h3>Go Deeper Into Your Blueprint</h3>
+                <p>Not sure which combination is yours? Get a personalized breakdown based on your exact birth date, sent straight to your inbox.</p>
+                
+                <form name="blueprint-signup-trans" method="POST" data-netlify="true" class="email-form">
+                    <input type="hidden" name="birth-year" id="formBirthYearTrans">
+                    <input type="hidden" name="combinations" id="formCombinations">
+                    
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Enter your email" required>
+                        <button type="submit">Send My Blueprint</button>
+                    </div>
+                </form>
+                
+                <p class="bonus-text">
+                    <em>Plus, you'll get the opportunity to book a complimentary chat to discuss your chart!</em>
+                </p>
+            </div>
+            
+            <button class="back-button" onclick="resetSelector()">← Choose Different Year</button>
         </section>
     </div>
+
+    <footer class="site-footer">
+        <p>© 2025 Bright Side Astrology | <a href="https://www.youtube.com/@BrightSideAstrology" target="_blank">YouTube</a></p>
+    </footer>
 
     <script src="script.js"></script>
 </body>

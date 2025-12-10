@@ -5,6 +5,7 @@
     --light-gray: #F8F9FA;
     --accent-red: #E74C3C;
     --success-green: #27AE60;
+    --youtube-red: #FF0000;
 }
 
 * {
@@ -20,6 +21,63 @@ body {
     color: #fff;
 }
 
+/* Site Header */
+.site-header {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1rem 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.logo-link {
+    text-decoration: none;
+}
+
+.site-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+.logo-link:hover .site-logo {
+    color: #F1C40F;
+}
+
+.youtube-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    background: rgba(255, 0, 0, 0.2);
+    border: 1px solid rgba(255, 0, 0, 0.4);
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.youtube-link:hover {
+    background: var(--youtube-red);
+    border-color: var(--youtube-red);
+}
+
+.youtube-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* Container */
 .container {
     max-width: 900px;
     margin: 0 auto;
@@ -29,10 +87,10 @@ body {
 /* Hero Section */
 .hero {
     text-align: center;
-    padding: 3rem 0;
+    padding: 2rem 0 3rem;
 }
 
-.hero h1 {
+.page-title {
     font-family: 'Playfair Display', serif;
     font-size: 2.5rem;
     margin-bottom: 1rem;
@@ -55,33 +113,44 @@ body {
     padding: 2rem 0;
 }
 
-.year-selector h2 {
+.year-selector h3 {
     margin-bottom: 1.5rem;
     color: #ECF0F1;
+    font-size: 1.3rem;
 }
 
 .year-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
+    gap: 0.4rem;
     margin-bottom: 2rem;
 }
 
 .year-btn {
-    padding: 0.75rem 0.5rem;
+    padding: 0.6rem 0.4rem;
     border: 1px solid rgba(255,255,255,0.2);
     background: rgba(255,255,255,0.05);
     color: #ECF0F1;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
 .year-btn:hover {
     background: var(--primary-purple);
     border-color: var(--primary-purple);
     transform: translateY(-2px);
+}
+
+.year-btn.transitional {
+    border-color: rgba(241, 196, 15, 0.5);
+    background: rgba(241, 196, 15, 0.1);
+}
+
+.year-btn.transitional:hover {
+    background: rgba(241, 196, 15, 0.3);
+    border-color: #F1C40F;
 }
 
 .year-dropdown-container {
@@ -104,8 +173,13 @@ body {
     cursor: pointer;
 }
 
+#yearDropdown option {
+    background: #1a1a2e;
+    color: #fff;
+}
+
 /* Results Section */
-.results {
+.results, .results-transitional {
     animation: fadeIn 0.5s ease;
 }
 
@@ -128,6 +202,55 @@ body {
     color: #ECF0F1;
 }
 
+/* Transitional Notice */
+.transitional-notice {
+    background: rgba(241, 196, 15, 0.15);
+    border: 1px solid rgba(241, 196, 15, 0.4);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.transitional-notice p {
+    color: #F1C40F;
+    font-size: 1rem;
+}
+
+/* Combination Blocks for Transitional Years */
+.combination-block {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.combo-header {
+    color: #F1C40F;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(241, 196, 15, 0.3);
+}
+
+.combination-block .planet-info {
+    margin-bottom: 1rem;
+}
+
+.combination-block .archetypal-phrase {
+    margin-top: 1rem;
+}
+
+.exact-note {
+    font-size: 0.85rem;
+    color: #7F8C8D;
+    text-align: center;
+    font-style: italic;
+    margin-top: 1rem;
+}
+
+/* Planet Info Grid */
 .planet-info {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -157,8 +280,8 @@ body {
     border: 1px solid rgba(41, 128, 185, 0.5);
 }
 
-.planet h3 {
-    font-size: 1.2rem;
+.planet h3, .planet h4 {
+    font-size: 1.1rem;
     margin-bottom: 0.5rem;
 }
 
@@ -168,9 +291,10 @@ body {
 
 .planet .keyword strong {
     color: #fff;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
 }
 
+/* Archetypal Phrase */
 .archetypal-phrase {
     text-align: center;
     padding: 1.5rem;
@@ -181,22 +305,9 @@ body {
 
 .archetypal-phrase p {
     font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-style: italic;
     color: #2ECC71;
-}
-
-.transition-info {
-    margin-top: 1rem;
-    padding: 1rem;
-    background: rgba(241, 196, 15, 0.1);
-    border-radius: 8px;
-    border-left: 3px solid #F1C40F;
-}
-
-.transition-info h4 {
-    color: #F1C40F;
-    margin-bottom: 0.5rem;
 }
 
 /* CTA Section */
@@ -210,6 +321,11 @@ body {
 
 .cta-section h3 {
     color: var(--accent-red);
+    margin-bottom: 1rem;
+}
+
+.cta-section > p {
+    color: #BDC3C7;
     margin-bottom: 1rem;
 }
 
@@ -280,4 +396,55 @@ body {
 .back-button:hover {
     background: rgba(255,255,255,0.1);
     color: #fff;
+}
+
+/* Footer */
+.site-footer {
+    text-align: center;
+    padding: 2rem;
+    color: #7F8C8D;
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 2rem;
+}
+
+.site-footer a {
+    color: #BDC3C7;
+    text-decoration: none;
+}
+
+.site-footer a:hover {
+    color: var(--youtube-red);
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+    .site-header {
+        padding: 1rem;
+    }
+    
+    .header-content {
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .site-logo {
+        font-size: 1.3rem;
+    }
+    
+    .page-title {
+        font-size: 1.8rem;
+    }
+    
+    .container {
+        padding: 1rem;
+    }
+    
+    .result-card {
+        padding: 1.5rem 1rem;
+    }
+    
+    .archetypal-phrase p {
+        font-size: 1rem;
+    }
 }

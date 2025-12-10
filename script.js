@@ -1,4 +1,6 @@
 // Pluto-Saturn Data (1900-2025)
+// Bright Side Astrology
+
 const SIGN_KEYWORDS = {
     "Aries": "self",
     "Taurus": "senses",
@@ -14,135 +16,641 @@ const SIGN_KEYWORDS = {
     "Pisces": "the unknown"
 };
 
-// Simplified year data - primary signs for each year
-// Format: { year: { pluto: "Sign", saturn: "Sign", transitions: "optional note" } }
+// Year data with detailed transition information
+// transitional: true means this year has sign changes
+// combos: array of combinations with month ranges
 const YEAR_DATA = {
-    1900: { pluto: "Gemini", saturn: "Sagittarius", transitions: "Saturn shifts to Capricorn mid-year" },
-    1901: { pluto: "Gemini", saturn: "Capricorn" },
-    1902: { pluto: "Gemini", saturn: "Capricorn" },
-    1903: { pluto: "Gemini", saturn: "Aquarius", transitions: "Saturn enters Aquarius Jan 19" },
-    1904: { pluto: "Gemini", saturn: "Aquarius" },
-    1905: { pluto: "Gemini", saturn: "Aquarius", transitions: "Saturn briefly in Pisces Apr-Aug" },
-    1906: { pluto: "Gemini", saturn: "Pisces" },
-    1907: { pluto: "Gemini", saturn: "Pisces" },
-    1908: { pluto: "Gemini", saturn: "Pisces", transitions: "Saturn enters Aries Mar-May, Oct onward" },
-    1909: { pluto: "Gemini", saturn: "Aries", transitions: "Saturn briefly back in Pisces Dec" },
-    1910: { pluto: "Gemini", saturn: "Aries", transitions: "Saturn enters Taurus May, Rx to Aries Dec" },
-    1911: { pluto: "Gemini", saturn: "Taurus" },
-    1912: { pluto: "Gemini", saturn: "Gemini", transitions: "Pluto briefly in Cancer Sep-Oct; Saturn enters Gemini Jul" },
-    1913: { pluto: "Gemini", saturn: "Gemini", transitions: "Pluto in Cancer Jul-Dec" },
-    1914: { pluto: "Cancer", saturn: "Cancer", transitions: "Pluto settles in Cancer May; Saturn enters Cancer Aug" },
-    1915: { pluto: "Cancer", saturn: "Cancer" },
-    1916: { pluto: "Cancer", saturn: "Cancer", transitions: "Saturn enters Leo Oct, Rx back Dec" },
-    1917: { pluto: "Cancer", saturn: "Leo" },
-    1918: { pluto: "Cancer", saturn: "Leo" },
-    1919: { pluto: "Cancer", saturn: "Virgo", transitions: "Saturn enters Virgo Aug" },
-    1920: { pluto: "Cancer", saturn: "Virgo" },
-    1921: { pluto: "Cancer", saturn: "Virgo", transitions: "Saturn enters Libra Oct" },
-    1922: { pluto: "Cancer", saturn: "Libra" },
-    1923: { pluto: "Cancer", saturn: "Libra", transitions: "Saturn enters Scorpio Dec" },
-    1924: { pluto: "Cancer", saturn: "Scorpio", transitions: "Saturn Rx to Libra Apr-Sep" },
-    1925: { pluto: "Cancer", saturn: "Scorpio" },
-    1926: { pluto: "Cancer", saturn: "Scorpio", transitions: "Saturn enters Sagittarius Dec" },
-    1927: { pluto: "Cancer", saturn: "Sagittarius" },
-    1928: { pluto: "Cancer", saturn: "Sagittarius" },
-    1929: { pluto: "Cancer", saturn: "Sagittarius", transitions: "Saturn enters Capricorn Mar, Rx back May-Nov" },
-    1930: { pluto: "Cancer", saturn: "Capricorn" },
-    1931: { pluto: "Cancer", saturn: "Capricorn" },
-    1932: { pluto: "Cancer", saturn: "Aquarius", transitions: "Saturn enters Aquarius Feb, Rx to Capricorn Aug-Nov" },
-    1933: { pluto: "Cancer", saturn: "Aquarius" },
-    1934: { pluto: "Cancer", saturn: "Aquarius" },
-    1935: { pluto: "Cancer", saturn: "Pisces", transitions: "Saturn enters Pisces Feb" },
-    1936: { pluto: "Cancer", saturn: "Pisces" },
-    1937: { pluto: "Cancer", saturn: "Pisces", transitions: "Pluto enters Leo Oct (Rx back Nov); Saturn enters Aries Apr (Rx to Pisces Oct)" },
-    1938: { pluto: "Leo", saturn: "Aries", transitions: "Pluto enters Leo Aug; Saturn enters Aries Jan" },
-    1939: { pluto: "Leo", saturn: "Aries", transitions: "Pluto Rx to Cancer Feb-Jun; Saturn enters Taurus Jul (Rx to Aries Sep)" },
-    1940: { pluto: "Leo", saturn: "Taurus" },
-    1941: { pluto: "Leo", saturn: "Taurus" },
-    1942: { pluto: "Leo", saturn: "Gemini", transitions: "Saturn enters Gemini May" },
-    1943: { pluto: "Leo", saturn: "Gemini" },
-    1944: { pluto: "Leo", saturn: "Cancer", transitions: "Saturn enters Cancer Jun" },
-    1945: { pluto: "Leo", saturn: "Cancer" },
-    1946: { pluto: "Leo", saturn: "Leo", transitions: "Saturn enters Leo Aug" },
-    1947: { pluto: "Leo", saturn: "Leo" },
-    1948: { pluto: "Leo", saturn: "Leo", transitions: "Saturn enters Virgo Sep" },
-    1949: { pluto: "Leo", saturn: "Virgo", transitions: "Saturn Rx to Leo Apr-May" },
-    1950: { pluto: "Leo", saturn: "Virgo", transitions: "Saturn enters Libra Nov" },
-    1951: { pluto: "Leo", saturn: "Libra", transitions: "Saturn Rx to Virgo Mar-Aug" },
-    1952: { pluto: "Leo", saturn: "Libra" },
-    1953: { pluto: "Leo", saturn: "Libra", transitions: "Saturn enters Scorpio Oct" },
-    1954: { pluto: "Leo", saturn: "Scorpio" },
-    1955: { pluto: "Leo", saturn: "Scorpio" },
-    1956: { pluto: "Leo", saturn: "Sagittarius", transitions: "Pluto enters Virgo Oct; Saturn enters Sagittarius Jan (Rx to Scorpio May-Oct)" },
-    1957: { pluto: "Virgo", saturn: "Sagittarius", transitions: "Pluto Rx to Leo Jan-Aug" },
-    1958: { pluto: "Virgo", saturn: "Sagittarius", transitions: "Pluto Rx to Leo Apr-Jun" },
-    1959: { pluto: "Virgo", saturn: "Capricorn", transitions: "Saturn enters Capricorn Jan" },
-    1960: { pluto: "Virgo", saturn: "Capricorn" },
-    1961: { pluto: "Virgo", saturn: "Capricorn" },
-    1962: { pluto: "Virgo", saturn: "Aquarius", transitions: "Saturn enters Aquarius Jan" },
-    1963: { pluto: "Virgo", saturn: "Aquarius" },
-    1964: { pluto: "Virgo", saturn: "Pisces", transitions: "Saturn enters Pisces Mar (Rx to Aquarius Sep-Dec)" },
-    1965: { pluto: "Virgo", saturn: "Pisces" },
-    1966: { pluto: "Virgo", saturn: "Pisces" },
-    1967: { pluto: "Virgo", saturn: "Aries", transitions: "Saturn enters Aries Mar" },
-    1968: { pluto: "Virgo", saturn: "Aries" },
-    1969: { pluto: "Virgo", saturn: "Taurus", transitions: "Saturn enters Taurus Apr" },
-    1970: { pluto: "Virgo", saturn: "Taurus" },
-    1971: { pluto: "Virgo", saturn: "Gemini", transitions: "Pluto enters Libra Oct; Saturn enters Gemini Jun" },
-    1972: { pluto: "Libra", saturn: "Gemini", transitions: "Pluto Rx to Virgo Apr-Jul; Saturn Rx to Taurus Jan-Feb" },
-    1973: { pluto: "Libra", saturn: "Cancer", transitions: "Saturn enters Cancer Aug" },
-    1974: { pluto: "Libra", saturn: "Cancer", transitions: "Saturn Rx to Gemini Jan-Apr" },
-    1975: { pluto: "Libra", saturn: "Leo", transitions: "Saturn enters Leo Sep" },
-    1976: { pluto: "Libra", saturn: "Leo", transitions: "Saturn Rx to Cancer Jan-Jun" },
-    1977: { pluto: "Libra", saturn: "Leo", transitions: "Saturn enters Virgo Nov" },
-    1978: { pluto: "Libra", saturn: "Virgo", transitions: "Saturn Rx to Leo Jan-Jul" },
-    1979: { pluto: "Libra", saturn: "Virgo" },
-    1980: { pluto: "Libra", saturn: "Virgo", transitions: "Saturn enters Libra Sep" },
-    1981: { pluto: "Libra", saturn: "Libra" },
-    1982: { pluto: "Libra", saturn: "Libra", transitions: "Saturn enters Scorpio Nov" },
-    1983: { pluto: "Libra", saturn: "Scorpio", transitions: "Pluto enters Scorpio Nov; Saturn Rx to Libra May-Aug" },
-    1984: { pluto: "Scorpio", saturn: "Scorpio", transitions: "Pluto Rx to Libra May-Aug" },
-    1985: { pluto: "Scorpio", saturn: "Scorpio", transitions: "Saturn enters Sagittarius Nov" },
-    1986: { pluto: "Scorpio", saturn: "Sagittarius" },
-    1987: { pluto: "Scorpio", saturn: "Sagittarius" },
-    1988: { pluto: "Scorpio", saturn: "Sagittarius", transitions: "Saturn enters Capricorn Feb (Rx to Sagittarius Jun-Nov)" },
-    1989: { pluto: "Scorpio", saturn: "Capricorn" },
-    1990: { pluto: "Scorpio", saturn: "Capricorn" },
-    1991: { pluto: "Scorpio", saturn: "Aquarius", transitions: "Saturn enters Aquarius Feb" },
-    1992: { pluto: "Scorpio", saturn: "Aquarius" },
-    1993: { pluto: "Scorpio", saturn: "Aquarius", transitions: "Saturn enters Pisces May (Rx to Aquarius Jun)" },
-    1994: { pluto: "Scorpio", saturn: "Pisces", transitions: "Saturn enters Pisces Jan" },
-    1995: { pluto: "Sagittarius", saturn: "Pisces", transitions: "Pluto enters Sagittarius Jan (Rx to Scorpio Apr-Nov)" },
-    1996: { pluto: "Sagittarius", saturn: "Aries", transitions: "Saturn enters Aries Apr" },
-    1997: { pluto: "Sagittarius", saturn: "Aries" },
-    1998: { pluto: "Sagittarius", saturn: "Taurus", transitions: "Saturn enters Taurus Jun (Rx to Aries Oct)" },
-    1999: { pluto: "Sagittarius", saturn: "Taurus", transitions: "Saturn enters Taurus Feb" },
-    2000: { pluto: "Sagittarius", saturn: "Taurus", transitions: "Saturn enters Gemini Aug (Rx to Taurus Oct)" },
-    2001: { pluto: "Sagittarius", saturn: "Gemini", transitions: "Saturn enters Gemini Apr" },
-    2002: { pluto: "Sagittarius", saturn: "Gemini" },
-    2003: { pluto: "Sagittarius", saturn: "Cancer", transitions: "Saturn enters Cancer Jun" },
-    2004: { pluto: "Sagittarius", saturn: "Cancer" },
-    2005: { pluto: "Sagittarius", saturn: "Leo", transitions: "Saturn enters Leo Jul" },
-    2006: { pluto: "Sagittarius", saturn: "Leo" },
-    2007: { pluto: "Sagittarius", saturn: "Virgo", transitions: "Saturn enters Virgo Sep" },
-    2008: { pluto: "Sagittarius", saturn: "Virgo", transitions: "Pluto enters Capricorn Jan (Rx to Sagittarius Jun-Nov)" },
-    2009: { pluto: "Capricorn", saturn: "Virgo", transitions: "Saturn enters Libra Oct" },
-    2010: { pluto: "Capricorn", saturn: "Libra", transitions: "Saturn Rx to Virgo Apr-Jul" },
-    2011: { pluto: "Capricorn", saturn: "Libra" },
-    2012: { pluto: "Capricorn", saturn: "Libra", transitions: "Saturn enters Scorpio Oct" },
-    2013: { pluto: "Capricorn", saturn: "Scorpio" },
-    2014: { pluto: "Capricorn", saturn: "Scorpio", transitions: "Saturn enters Sagittarius Dec" },
-    2015: { pluto: "Capricorn", saturn: "Sagittarius", transitions: "Saturn Rx to Scorpio Jun-Sep" },
-    2016: { pluto: "Capricorn", saturn: "Sagittarius" },
-    2017: { pluto: "Capricorn", saturn: "Sagittarius", transitions: "Saturn enters Capricorn Dec" },
-    2018: { pluto: "Capricorn", saturn: "Capricorn" },
-    2019: { pluto: "Capricorn", saturn: "Capricorn" },
-    2020: { pluto: "Capricorn", saturn: "Capricorn", transitions: "Saturn enters Aquarius Mar (Rx to Capricorn Jul-Dec)" },
-    2021: { pluto: "Capricorn", saturn: "Aquarius" },
-    2022: { pluto: "Capricorn", saturn: "Aquarius" },
-    2023: { pluto: "Capricorn", saturn: "Pisces", transitions: "Pluto enters Aquarius Mar (Rx to Capricorn Jun); Saturn enters Pisces Mar" },
-    2024: { pluto: "Aquarius", saturn: "Pisces", transitions: "Pluto enters Aquarius Jan, Rx to Capricorn Sep, returns Nov" },
-    2025: { pluto: "Aquarius", saturn: "Pisces", transitions: "Saturn enters Aries May (Rx to Pisces Sep)" }
+    1900: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Oct", pluto: "Gemini", saturn: "Sagittarius" },
+            { months: "Oct - Dec", pluto: "Gemini", saturn: "Capricorn" }
+        ]
+    },
+    1901: { transitional: false, pluto: "Gemini", saturn: "Capricorn" },
+    1902: { transitional: false, pluto: "Gemini", saturn: "Capricorn" },
+    1903: { 
+        transitional: true,
+        combos: [
+            { months: "Jan", pluto: "Gemini", saturn: "Capricorn" },
+            { months: "Feb - Dec", pluto: "Gemini", saturn: "Aquarius" }
+        ]
+    },
+    1904: { transitional: false, pluto: "Gemini", saturn: "Aquarius" },
+    1905: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Apr", pluto: "Gemini", saturn: "Aquarius" },
+            { months: "Apr - Aug", pluto: "Gemini", saturn: "Pisces" },
+            { months: "Aug - Dec", pluto: "Gemini", saturn: "Aquarius" }
+        ]
+    },
+    1906: { 
+        transitional: true,
+        combos: [
+            { months: "Jan", pluto: "Gemini", saturn: "Aquarius" },
+            { months: "Jan - Dec", pluto: "Gemini", saturn: "Pisces" }
+        ]
+    },
+    1907: { transitional: false, pluto: "Gemini", saturn: "Pisces" },
+    1908: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Mar", pluto: "Gemini", saturn: "Pisces" },
+            { months: "Mar - May", pluto: "Gemini", saturn: "Aries" },
+            { months: "May - Oct", pluto: "Gemini", saturn: "Pisces" },
+            { months: "Oct - Dec", pluto: "Gemini", saturn: "Aries" }
+        ]
+    },
+    1909: { transitional: false, pluto: "Gemini", saturn: "Aries" },
+    1910: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - May", pluto: "Gemini", saturn: "Aries" },
+            { months: "May - Dec", pluto: "Gemini", saturn: "Taurus" }
+        ]
+    },
+    1911: { transitional: false, pluto: "Gemini", saturn: "Taurus" },
+    1912: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Jul", pluto: "Gemini", saturn: "Taurus" },
+            { months: "Jul - Sep", pluto: "Gemini", saturn: "Gemini" },
+            { months: "Sep - Oct", pluto: "Cancer", saturn: "Gemini" },
+            { months: "Oct - Dec", pluto: "Gemini", saturn: "Gemini" }
+        ]
+    },
+    1913: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Mar", pluto: "Gemini", saturn: "Taurus" },
+            { months: "Mar - Jul", pluto: "Gemini", saturn: "Gemini" },
+            { months: "Jul - Dec", pluto: "Cancer", saturn: "Gemini" }
+        ]
+    },
+    1914: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - May", pluto: "Gemini", saturn: "Gemini" },
+            { months: "May - Aug", pluto: "Cancer", saturn: "Gemini" },
+            { months: "Aug - Dec", pluto: "Cancer", saturn: "Cancer" }
+        ]
+    },
+    1915: { transitional: false, pluto: "Cancer", saturn: "Cancer" },
+    1916: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Oct", pluto: "Cancer", saturn: "Cancer" },
+            { months: "Oct - Dec", pluto: "Cancer", saturn: "Leo" }
+        ]
+    },
+    1917: { transitional: false, pluto: "Cancer", saturn: "Leo" },
+    1918: { transitional: false, pluto: "Cancer", saturn: "Leo" },
+    1919: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Aug", pluto: "Cancer", saturn: "Leo" },
+            { months: "Aug - Dec", pluto: "Cancer", saturn: "Virgo" }
+        ]
+    },
+    1920: { transitional: false, pluto: "Cancer", saturn: "Virgo" },
+    1921: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Oct", pluto: "Cancer", saturn: "Virgo" },
+            { months: "Oct - Dec", pluto: "Cancer", saturn: "Libra" }
+        ]
+    },
+    1922: { transitional: false, pluto: "Cancer", saturn: "Libra" },
+    1923: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Dec", pluto: "Cancer", saturn: "Libra" },
+            { months: "Dec", pluto: "Cancer", saturn: "Scorpio" }
+        ]
+    },
+    1924: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Apr", pluto: "Cancer", saturn: "Scorpio" },
+            { months: "Apr - Sep", pluto: "Cancer", saturn: "Libra" },
+            { months: "Sep - Dec", pluto: "Cancer", saturn: "Scorpio" }
+        ]
+    },
+    1925: { transitional: false, pluto: "Cancer", saturn: "Scorpio" },
+    1926: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Dec", pluto: "Cancer", saturn: "Scorpio" },
+            { months: "Dec", pluto: "Cancer", saturn: "Sagittarius" }
+        ]
+    },
+    1927: { transitional: false, pluto: "Cancer", saturn: "Sagittarius" },
+    1928: { transitional: false, pluto: "Cancer", saturn: "Sagittarius" },
+    1929: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Mar", pluto: "Cancer", saturn: "Sagittarius" },
+            { months: "Mar - May", pluto: "Cancer", saturn: "Capricorn" },
+            { months: "May - Nov", pluto: "Cancer", saturn: "Sagittarius" },
+            { months: "Nov - Dec", pluto: "Cancer", saturn: "Capricorn" }
+        ]
+    },
+    1930: { transitional: false, pluto: "Cancer", saturn: "Capricorn" },
+    1931: { transitional: false, pluto: "Cancer", saturn: "Capricorn" },
+    1932: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Feb", pluto: "Cancer", saturn: "Capricorn" },
+            { months: "Feb - Aug", pluto: "Cancer", saturn: "Aquarius" },
+            { months: "Aug - Nov", pluto: "Cancer", saturn: "Capricorn" },
+            { months: "Nov - Dec", pluto: "Cancer", saturn: "Aquarius" }
+        ]
+    },
+    1933: { transitional: false, pluto: "Cancer", saturn: "Aquarius" },
+    1934: { transitional: false, pluto: "Cancer", saturn: "Aquarius" },
+    1935: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Feb", pluto: "Cancer", saturn: "Aquarius" },
+            { months: "Feb - Dec", pluto: "Cancer", saturn: "Pisces" }
+        ]
+    },
+    1936: { transitional: false, pluto: "Cancer", saturn: "Pisces" },
+    1937: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Apr", pluto: "Cancer", saturn: "Pisces" },
+            { months: "Apr - Oct", pluto: "Cancer", saturn: "Aries" },
+            { months: "Oct - Nov", pluto: "Leo", saturn: "Pisces" },
+            { months: "Nov - Dec", pluto: "Cancer", saturn: "Pisces" }
+        ]
+    },
+    1938: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Aug", pluto: "Cancer", saturn: "Aries" },
+            { months: "Aug - Dec", pluto: "Leo", saturn: "Aries" }
+        ]
+    },
+    1939: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Feb", pluto: "Leo", saturn: "Aries" },
+            { months: "Feb - Jun", pluto: "Cancer", saturn: "Aries" },
+            { months: "Jun - Jul", pluto: "Leo", saturn: "Aries" },
+            { months: "Jul - Sep", pluto: "Leo", saturn: "Taurus" },
+            { months: "Sep - Dec", pluto: "Leo", saturn: "Aries" }
+        ]
+    },
+    1940: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Mar", pluto: "Leo", saturn: "Aries" },
+            { months: "Mar - Dec", pluto: "Leo", saturn: "Taurus" }
+        ]
+    },
+    1941: { transitional: false, pluto: "Leo", saturn: "Taurus" },
+    1942: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - May", pluto: "Leo", saturn: "Taurus" },
+            { months: "May - Dec", pluto: "Leo", saturn: "Gemini" }
+        ]
+    },
+    1943: { transitional: false, pluto: "Leo", saturn: "Gemini" },
+    1944: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Jun", pluto: "Leo", saturn: "Gemini" },
+            { months: "Jun - Dec", pluto: "Leo", saturn: "Cancer" }
+        ]
+    },
+    1945: { transitional: false, pluto: "Leo", saturn: "Cancer" },
+    1946: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Aug", pluto: "Leo", saturn: "Cancer" },
+            { months: "Aug - Dec", pluto: "Leo", saturn: "Leo" }
+        ]
+    },
+    1947: { transitional: false, pluto: "Leo", saturn: "Leo" },
+    1948: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Sep", pluto: "Leo", saturn: "Leo" },
+            { months: "Sep - Dec", pluto: "Leo", saturn: "Virgo" }
+        ]
+    },
+    1949: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Apr", pluto: "Leo", saturn: "Virgo" },
+            { months: "Apr - May", pluto: "Leo", saturn: "Leo" },
+            { months: "May - Dec", pluto: "Leo", saturn: "Virgo" }
+        ]
+    },
+    1950: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Nov", pluto: "Leo", saturn: "Virgo" },
+            { months: "Nov - Dec", pluto: "Leo", saturn: "Libra" }
+        ]
+    },
+    1951: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Mar", pluto: "Leo", saturn: "Libra" },
+            { months: "Mar - Aug", pluto: "Leo", saturn: "Virgo" },
+            { months: "Aug - Dec", pluto: "Leo", saturn: "Libra" }
+        ]
+    },
+    1952: { transitional: false, pluto: "Leo", saturn: "Libra" },
+    1953: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Oct", pluto: "Leo", saturn: "Libra" },
+            { months: "Oct - Dec", pluto: "Leo", saturn: "Scorpio" }
+        ]
+    },
+    1954: { transitional: false, pluto: "Leo", saturn: "Scorpio" },
+    1955: { transitional: false, pluto: "Leo", saturn: "Scorpio" },
+    1956: { 
+        transitional: true,
+        combos: [
+            { months: "Jan", pluto: "Leo", saturn: "Scorpio" },
+            { months: "Jan - May", pluto: "Leo", saturn: "Sagittarius" },
+            { months: "May - Oct", pluto: "Leo", saturn: "Scorpio" },
+            { months: "Oct", pluto: "Virgo", saturn: "Sagittarius" }
+        ]
+    },
+    1957: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Aug", pluto: "Leo", saturn: "Sagittarius" },
+            { months: "Aug - Dec", pluto: "Virgo", saturn: "Sagittarius" }
+        ]
+    },
+    1958: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Apr", pluto: "Virgo", saturn: "Sagittarius" },
+            { months: "Apr - Jun", pluto: "Leo", saturn: "Sagittarius" },
+            { months: "Jun - Dec", pluto: "Virgo", saturn: "Sagittarius" }
+        ]
+    },
+    1959: { 
+        transitional: true,
+        combos: [
+            { months: "Jan", pluto: "Virgo", saturn: "Sagittarius" },
+            { months: "Jan - Dec", pluto: "Virgo", saturn: "Capricorn" }
+        ]
+    },
+    1960: { transitional: false, pluto: "Virgo", saturn: "Capricorn" },
+    1961: { transitional: false, pluto: "Virgo", saturn: "Capricorn" },
+    1962: { 
+        transitional: true,
+        combos: [
+            { months: "Jan", pluto: "Virgo", saturn: "Capricorn" },
+            { months: "Jan - Dec", pluto: "Virgo", saturn: "Aquarius" }
+        ]
+    },
+    1963: { transitional: false, pluto: "Virgo", saturn: "Aquarius" },
+    1964: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Mar", pluto: "Virgo", saturn: "Aquarius" },
+            { months: "Mar - Sep", pluto: "Virgo", saturn: "Pisces" },
+            { months: "Sep - Dec", pluto: "Virgo", saturn: "Aquarius" }
+        ]
+    },
+    1965: { 
+        transitional: true,
+        combos: [
+            { months: "Jan", pluto: "Virgo", saturn: "Aquarius" },
+            { months: "Jan - Dec", pluto: "Virgo", saturn: "Pisces" }
+        ]
+    },
+    1966: { transitional: false, pluto: "Virgo", saturn: "Pisces" },
+    1967: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Mar", pluto: "Virgo", saturn: "Pisces" },
+            { months: "Mar - Dec", pluto: "Virgo", saturn: "Aries" }
+        ]
+    },
+    1968: { transitional: false, pluto: "Virgo", saturn: "Aries" },
+    1969: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Apr", pluto: "Virgo", saturn: "Aries" },
+            { months: "Apr - Dec", pluto: "Virgo", saturn: "Taurus" }
+        ]
+    },
+    1970: { transitional: false, pluto: "Virgo", saturn: "Taurus" },
+    1971: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Jun", pluto: "Virgo", saturn: "Taurus" },
+            { months: "Jun - Oct", pluto: "Virgo", saturn: "Gemini" },
+            { months: "Oct - Dec", pluto: "Libra", saturn: "Gemini" }
+        ]
+    },
+    1972: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Feb", pluto: "Libra", saturn: "Taurus" },
+            { months: "Feb - Apr", pluto: "Libra", saturn: "Gemini" },
+            { months: "Apr - Jul", pluto: "Virgo", saturn: "Gemini" },
+            { months: "Jul - Dec", pluto: "Libra", saturn: "Gemini" }
+        ]
+    },
+    1973: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Aug", pluto: "Libra", saturn: "Gemini" },
+            { months: "Aug - Dec", pluto: "Libra", saturn: "Cancer" }
+        ]
+    },
+    1974: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Apr", pluto: "Libra", saturn: "Gemini" },
+            { months: "Apr - Dec", pluto: "Libra", saturn: "Cancer" }
+        ]
+    },
+    1975: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Sep", pluto: "Libra", saturn: "Cancer" },
+            { months: "Sep - Dec", pluto: "Libra", saturn: "Leo" }
+        ]
+    },
+    1976: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Jun", pluto: "Libra", saturn: "Cancer" },
+            { months: "Jun - Dec", pluto: "Libra", saturn: "Leo" }
+        ]
+    },
+    1977: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Nov", pluto: "Libra", saturn: "Leo" },
+            { months: "Nov - Dec", pluto: "Libra", saturn: "Virgo" }
+        ]
+    },
+    1978: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Jul", pluto: "Libra", saturn: "Leo" },
+            { months: "Jul - Dec", pluto: "Libra", saturn: "Virgo" }
+        ]
+    },
+    1979: { transitional: false, pluto: "Libra", saturn: "Virgo" },
+    1980: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Sep", pluto: "Libra", saturn: "Virgo" },
+            { months: "Sep - Dec", pluto: "Libra", saturn: "Libra" }
+        ]
+    },
+    1981: { transitional: false, pluto: "Libra", saturn: "Libra" },
+    1982: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Nov", pluto: "Libra", saturn: "Libra" },
+            { months: "Nov - Dec", pluto: "Libra", saturn: "Scorpio" }
+        ]
+    },
+    1983: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - May", pluto: "Libra", saturn: "Scorpio" },
+            { months: "May - Aug", pluto: "Libra", saturn: "Libra" },
+            { months: "Aug - Nov", pluto: "Libra", saturn: "Scorpio" },
+            { months: "Nov - Dec", pluto: "Scorpio", saturn: "Scorpio" }
+        ]
+    },
+    1984: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - May", pluto: "Scorpio", saturn: "Scorpio" },
+            { months: "May - Aug", pluto: "Libra", saturn: "Scorpio" },
+            { months: "Aug - Dec", pluto: "Scorpio", saturn: "Scorpio" }
+        ]
+    },
+    1985: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Nov", pluto: "Scorpio", saturn: "Scorpio" },
+            { months: "Nov - Dec", pluto: "Scorpio", saturn: "Sagittarius" }
+        ]
+    },
+    1986: { transitional: false, pluto: "Scorpio", saturn: "Sagittarius" },
+    1987: { transitional: false, pluto: "Scorpio", saturn: "Sagittarius" },
+    1988: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Feb", pluto: "Scorpio", saturn: "Sagittarius" },
+            { months: "Feb - Jun", pluto: "Scorpio", saturn: "Capricorn" },
+            { months: "Jun - Nov", pluto: "Scorpio", saturn: "Sagittarius" },
+            { months: "Nov - Dec", pluto: "Scorpio", saturn: "Capricorn" }
+        ]
+    },
+    1989: { transitional: false, pluto: "Scorpio", saturn: "Capricorn" },
+    1990: { transitional: false, pluto: "Scorpio", saturn: "Capricorn" },
+    1991: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Feb", pluto: "Scorpio", saturn: "Capricorn" },
+            { months: "Feb - Dec", pluto: "Scorpio", saturn: "Aquarius" }
+        ]
+    },
+    1992: { transitional: false, pluto: "Scorpio", saturn: "Aquarius" },
+    1993: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - May", pluto: "Scorpio", saturn: "Aquarius" },
+            { months: "May - Jun", pluto: "Scorpio", saturn: "Pisces" },
+            { months: "Jun - Dec", pluto: "Scorpio", saturn: "Aquarius" }
+        ]
+    },
+    1994: { 
+        transitional: true,
+        combos: [
+            { months: "Jan", pluto: "Scorpio", saturn: "Aquarius" },
+            { months: "Jan - Dec", pluto: "Scorpio", saturn: "Pisces" }
+        ]
+    },
+    1995: { 
+        transitional: true,
+        combos: [
+            { months: "Jan", pluto: "Sagittarius", saturn: "Pisces" },
+            { months: "Apr - Nov", pluto: "Scorpio", saturn: "Pisces" },
+            { months: "Nov - Dec", pluto: "Sagittarius", saturn: "Pisces" }
+        ]
+    },
+    1996: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Apr", pluto: "Sagittarius", saturn: "Pisces" },
+            { months: "Apr - Dec", pluto: "Sagittarius", saturn: "Aries" }
+        ]
+    },
+    1997: { transitional: false, pluto: "Sagittarius", saturn: "Aries" },
+    1998: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Jun", pluto: "Sagittarius", saturn: "Aries" },
+            { months: "Jun - Oct", pluto: "Sagittarius", saturn: "Taurus" },
+            { months: "Oct - Dec", pluto: "Sagittarius", saturn: "Aries" }
+        ]
+    },
+    1999: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Feb", pluto: "Sagittarius", saturn: "Aries" },
+            { months: "Feb - Dec", pluto: "Sagittarius", saturn: "Taurus" }
+        ]
+    },
+    2000: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Aug", pluto: "Sagittarius", saturn: "Taurus" },
+            { months: "Aug - Oct", pluto: "Sagittarius", saturn: "Gemini" },
+            { months: "Oct - Dec", pluto: "Sagittarius", saturn: "Taurus" }
+        ]
+    },
+    2001: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Apr", pluto: "Sagittarius", saturn: "Taurus" },
+            { months: "Apr - Dec", pluto: "Sagittarius", saturn: "Gemini" }
+        ]
+    },
+    2002: { transitional: false, pluto: "Sagittarius", saturn: "Gemini" },
+    2003: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Jun", pluto: "Sagittarius", saturn: "Gemini" },
+            { months: "Jun - Dec", pluto: "Sagittarius", saturn: "Cancer" }
+        ]
+    },
+    2004: { transitional: false, pluto: "Sagittarius", saturn: "Cancer" },
+    2005: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Jul", pluto: "Sagittarius", saturn: "Cancer" },
+            { months: "Jul - Dec", pluto: "Sagittarius", saturn: "Leo" }
+        ]
+    },
+    2006: { transitional: false, pluto: "Sagittarius", saturn: "Leo" },
+    2007: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Sep", pluto: "Sagittarius", saturn: "Leo" },
+            { months: "Sep - Dec", pluto: "Sagittarius", saturn: "Virgo" }
+        ]
+    },
+    2008: { 
+        transitional: true,
+        combos: [
+            { months: "Jan", pluto: "Capricorn", saturn: "Virgo" },
+            { months: "Jun - Nov", pluto: "Sagittarius", saturn: "Virgo" },
+            { months: "Nov - Dec", pluto: "Capricorn", saturn: "Virgo" }
+        ]
+    },
+    2009: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Oct", pluto: "Capricorn", saturn: "Virgo" },
+            { months: "Oct - Dec", pluto: "Capricorn", saturn: "Libra" }
+        ]
+    },
+    2010: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Apr", pluto: "Capricorn", saturn: "Libra" },
+            { months: "Apr - Jul", pluto: "Capricorn", saturn: "Virgo" },
+            { months: "Jul - Dec", pluto: "Capricorn", saturn: "Libra" }
+        ]
+    },
+    2011: { transitional: false, pluto: "Capricorn", saturn: "Libra" },
+    2012: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Oct", pluto: "Capricorn", saturn: "Libra" },
+            { months: "Oct - Dec", pluto: "Capricorn", saturn: "Scorpio" }
+        ]
+    },
+    2013: { transitional: false, pluto: "Capricorn", saturn: "Scorpio" },
+    2014: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Dec", pluto: "Capricorn", saturn: "Scorpio" },
+            { months: "Dec", pluto: "Capricorn", saturn: "Sagittarius" }
+        ]
+    },
+    2015: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Jun", pluto: "Capricorn", saturn: "Sagittarius" },
+            { months: "Jun - Sep", pluto: "Capricorn", saturn: "Scorpio" },
+            { months: "Sep - Dec", pluto: "Capricorn", saturn: "Sagittarius" }
+        ]
+    },
+    2016: { transitional: false, pluto: "Capricorn", saturn: "Sagittarius" },
+    2017: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Dec", pluto: "Capricorn", saturn: "Sagittarius" },
+            { months: "Dec", pluto: "Capricorn", saturn: "Capricorn" }
+        ]
+    },
+    2018: { transitional: false, pluto: "Capricorn", saturn: "Capricorn" },
+    2019: { transitional: false, pluto: "Capricorn", saturn: "Capricorn" },
+    2020: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Mar", pluto: "Capricorn", saturn: "Capricorn" },
+            { months: "Mar - Jul", pluto: "Capricorn", saturn: "Aquarius" },
+            { months: "Jul - Dec", pluto: "Capricorn", saturn: "Capricorn" }
+        ]
+    },
+    2021: { 
+        transitional: true,
+        combos: [
+            { months: "Jan", pluto: "Capricorn", saturn: "Capricorn" },
+            { months: "Jan - Dec", pluto: "Capricorn", saturn: "Aquarius" }
+        ]
+    },
+    2022: { transitional: false, pluto: "Capricorn", saturn: "Aquarius" },
+    2023: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Mar", pluto: "Capricorn", saturn: "Aquarius" },
+            { months: "Mar", pluto: "Aquarius", saturn: "Pisces" },
+            { months: "Mar - Jun", pluto: "Aquarius", saturn: "Pisces" },
+            { months: "Jun - Dec", pluto: "Capricorn", saturn: "Pisces" }
+        ]
+    },
+    2024: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - Sep", pluto: "Aquarius", saturn: "Pisces" },
+            { months: "Sep - Nov", pluto: "Capricorn", saturn: "Pisces" },
+            { months: "Nov - Dec", pluto: "Aquarius", saturn: "Pisces" }
+        ]
+    },
+    2025: { 
+        transitional: true,
+        combos: [
+            { months: "Jan - May", pluto: "Aquarius", saturn: "Pisces" },
+            { months: "May - Sep", pluto: "Aquarius", saturn: "Aries" },
+            { months: "Sep - Dec", pluto: "Aquarius", saturn: "Pisces" }
+        ]
+    }
 };
 
 // Initialize the page
@@ -156,6 +664,12 @@ function populateYearGrid() {
     for (let year = 1900; year <= 2025; year++) {
         const btn = document.createElement('button');
         btn.className = 'year-btn';
+        
+        // Mark transitional years
+        if (YEAR_DATA[year] && YEAR_DATA[year].transitional) {
+            btn.classList.add('transitional');
+        }
+        
         btn.textContent = year;
         btn.onclick = () => selectYear(year);
         grid.appendChild(btn);
@@ -167,7 +681,7 @@ function populateYearDropdown() {
     for (let year = 2025; year >= 1900; year--) {
         const option = document.createElement('option');
         option.value = year;
-        option.textContent = year;
+        option.textContent = year + (YEAR_DATA[year]?.transitional ? ' ⚡' : '');
         dropdown.appendChild(option);
     }
     dropdown.onchange = (e) => {
@@ -175,49 +689,118 @@ function populateYearDropdown() {
     };
 }
 
+function createPhrase(plutoSign, saturnSign) {
+    const plutoKeyword = SIGN_KEYWORDS[plutoSign];
+    const saturnKeyword = SIGN_KEYWORDS[saturnSign];
+    return `"Wanting limitless ${plutoKeyword} through mastery of ${saturnKeyword}"`;
+}
+
 function selectYear(year) {
     const data = YEAR_DATA[year];
     if (!data) return;
     
+    // Hide both result sections first
+    document.getElementById('results').style.display = 'none';
+    document.getElementById('resultsTransitional').style.display = 'none';
+    document.getElementById('yearSelector').style.display = 'none';
+    
+    if (data.transitional) {
+        // Show transitional results
+        showTransitionalResults(year, data);
+    } else {
+        // Show simple results
+        showSimpleResults(year, data);
+    }
+}
+
+function showSimpleResults(year, data) {
     const plutoSign = data.pluto;
     const saturnSign = data.saturn;
     const plutoKeyword = SIGN_KEYWORDS[plutoSign];
     const saturnKeyword = SIGN_KEYWORDS[saturnSign];
     
-    // Update display
     document.getElementById('selectedYear').textContent = year;
     document.getElementById('plutoSign').textContent = plutoSign;
     document.getElementById('saturnSign').textContent = saturnSign;
     document.getElementById('plutoKeyword').textContent = plutoKeyword;
     document.getElementById('saturnKeyword').textContent = saturnKeyword;
-    document.getElementById('fullPhrase').textContent = 
-        `"Wanting limitless ${plutoKeyword} through mastery of ${saturnKeyword}"`;
+    document.getElementById('fullPhrase').textContent = createPhrase(plutoSign, saturnSign);
     
-    // Handle transitions
-    const transitionInfo = document.getElementById('transitionInfo');
-    if (data.transitions) {
-        document.getElementById('transitionDetails').textContent = data.transitions;
-        transitionInfo.style.display = 'block';
-    } else {
-        transitionInfo.style.display = 'none';
-    }
-    
-    // Update hidden form fields
+    // Update form fields
     document.getElementById('formBirthYear').value = year;
     document.getElementById('formPlutoSign').value = plutoSign;
     document.getElementById('formSaturnSign').value = saturnSign;
     
-    // Show results, hide selector
-    document.getElementById('yearSelector').style.display = 'none';
     document.getElementById('results').style.display = 'block';
-    
-    // Scroll to results
     document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+}
+
+function showTransitionalResults(year, data) {
+    document.getElementById('selectedYearTrans').textContent = year;
+    
+    const combos = data.combos;
+    
+    // Get unique combinations (avoid duplicates)
+    const uniqueCombos = [];
+    const seen = new Set();
+    
+    for (const combo of combos) {
+        const key = `${combo.pluto}-${combo.saturn}`;
+        if (!seen.has(key)) {
+            seen.add(key);
+            uniqueCombos.push(combo);
+        }
+    }
+    
+    // Update combo 1
+    if (uniqueCombos[0]) {
+        document.getElementById('combo1Header').textContent = `If born ${uniqueCombos[0].months}:`;
+        document.getElementById('plutoSign1').textContent = uniqueCombos[0].pluto;
+        document.getElementById('saturnSign1').textContent = uniqueCombos[0].saturn;
+        document.getElementById('plutoKeyword1').textContent = SIGN_KEYWORDS[uniqueCombos[0].pluto];
+        document.getElementById('saturnKeyword1').textContent = SIGN_KEYWORDS[uniqueCombos[0].saturn];
+        document.getElementById('fullPhrase1').textContent = createPhrase(uniqueCombos[0].pluto, uniqueCombos[0].saturn);
+        document.getElementById('combo1').style.display = 'block';
+    }
+    
+    // Update combo 2
+    if (uniqueCombos[1]) {
+        document.getElementById('combo2Header').textContent = `If born ${uniqueCombos[1].months}:`;
+        document.getElementById('plutoSign2').textContent = uniqueCombos[1].pluto;
+        document.getElementById('saturnSign2').textContent = uniqueCombos[1].saturn;
+        document.getElementById('plutoKeyword2').textContent = SIGN_KEYWORDS[uniqueCombos[1].pluto];
+        document.getElementById('saturnKeyword2').textContent = SIGN_KEYWORDS[uniqueCombos[1].saturn];
+        document.getElementById('fullPhrase2').textContent = createPhrase(uniqueCombos[1].pluto, uniqueCombos[1].saturn);
+        document.getElementById('combo2').style.display = 'block';
+    } else {
+        document.getElementById('combo2').style.display = 'none';
+    }
+    
+    // Update combo 3 (if exists)
+    if (uniqueCombos[2]) {
+        document.getElementById('combo3Header').textContent = `If born ${uniqueCombos[2].months}:`;
+        document.getElementById('plutoSign3').textContent = uniqueCombos[2].pluto;
+        document.getElementById('saturnSign3').textContent = uniqueCombos[2].saturn;
+        document.getElementById('plutoKeyword3').textContent = SIGN_KEYWORDS[uniqueCombos[2].pluto];
+        document.getElementById('saturnKeyword3').textContent = SIGN_KEYWORDS[uniqueCombos[2].saturn];
+        document.getElementById('fullPhrase3').textContent = createPhrase(uniqueCombos[2].pluto, uniqueCombos[2].saturn);
+        document.getElementById('combo3').style.display = 'block';
+    } else {
+        document.getElementById('combo3').style.display = 'none';
+    }
+    
+    // Update form fields
+    document.getElementById('formBirthYearTrans').value = year;
+    document.getElementById('formCombinations').value = uniqueCombos.map(c => `${c.pluto}/${c.saturn}`).join('; ');
+    
+    document.getElementById('resultsTransitional').style.display = 'block';
+    document.getElementById('resultsTransitional').scrollIntoView({ behavior: 'smooth' });
 }
 
 function resetSelector() {
     document.getElementById('yearSelector').style.display = 'block';
     document.getElementById('results').style.display = 'none';
+    document.getElementById('resultsTransitional').style.display = 'none';
     document.getElementById('yearDropdown').value = '';
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
