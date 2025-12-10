@@ -17,8 +17,6 @@ const SIGN_KEYWORDS = {
 };
 
 // Year data with detailed transition information
-// transitional: true means this year has sign changes
-// combos: array of combinations with month ranges
 const YEAR_DATA = {
     1900: { 
         transitional: true,
@@ -630,7 +628,6 @@ const YEAR_DATA = {
         transitional: true,
         combos: [
             { months: "Jan - Mar", pluto: "Capricorn", saturn: "Aquarius" },
-            { months: "Mar", pluto: "Aquarius", saturn: "Pisces" },
             { months: "Mar - Jun", pluto: "Aquarius", saturn: "Pisces" },
             { months: "Jun - Dec", pluto: "Capricorn", saturn: "Pisces" }
         ]
@@ -665,7 +662,6 @@ function populateYearGrid() {
         const btn = document.createElement('button');
         btn.className = 'year-btn';
         
-        // Mark transitional years
         if (YEAR_DATA[year] && YEAR_DATA[year].transitional) {
             btn.classList.add('transitional');
         }
@@ -692,23 +688,20 @@ function populateYearDropdown() {
 function createPhrase(plutoSign, saturnSign) {
     const plutoKeyword = SIGN_KEYWORDS[plutoSign];
     const saturnKeyword = SIGN_KEYWORDS[saturnSign];
-    return `"Wanting limitless ${plutoKeyword} through mastery of ${saturnKeyword}"`;
+    return `Wanting limitless ${plutoKeyword} through mastery of ${saturnKeyword}`;
 }
 
 function selectYear(year) {
     const data = YEAR_DATA[year];
     if (!data) return;
     
-    // Hide both result sections first
     document.getElementById('results').style.display = 'none';
     document.getElementById('resultsTransitional').style.display = 'none';
     document.getElementById('yearSelector').style.display = 'none';
     
     if (data.transitional) {
-        // Show transitional results
         showTransitionalResults(year, data);
     } else {
-        // Show simple results
         showSimpleResults(year, data);
     }
 }
@@ -726,7 +719,6 @@ function showSimpleResults(year, data) {
     document.getElementById('saturnKeyword').textContent = saturnKeyword;
     document.getElementById('fullPhrase').textContent = createPhrase(plutoSign, saturnSign);
     
-    // Update form fields
     document.getElementById('formBirthYear').value = year;
     document.getElementById('formPlutoSign').value = plutoSign;
     document.getElementById('formSaturnSign').value = saturnSign;
@@ -740,7 +732,6 @@ function showTransitionalResults(year, data) {
     
     const combos = data.combos;
     
-    // Get unique combinations (avoid duplicates)
     const uniqueCombos = [];
     const seen = new Set();
     
@@ -752,7 +743,6 @@ function showTransitionalResults(year, data) {
         }
     }
     
-    // Update combo 1
     if (uniqueCombos[0]) {
         document.getElementById('combo1Header').textContent = `If born ${uniqueCombos[0].months}:`;
         document.getElementById('plutoSign1').textContent = uniqueCombos[0].pluto;
@@ -763,7 +753,6 @@ function showTransitionalResults(year, data) {
         document.getElementById('combo1').style.display = 'block';
     }
     
-    // Update combo 2
     if (uniqueCombos[1]) {
         document.getElementById('combo2Header').textContent = `If born ${uniqueCombos[1].months}:`;
         document.getElementById('plutoSign2').textContent = uniqueCombos[1].pluto;
@@ -776,7 +765,6 @@ function showTransitionalResults(year, data) {
         document.getElementById('combo2').style.display = 'none';
     }
     
-    // Update combo 3 (if exists)
     if (uniqueCombos[2]) {
         document.getElementById('combo3Header').textContent = `If born ${uniqueCombos[2].months}:`;
         document.getElementById('plutoSign3').textContent = uniqueCombos[2].pluto;
@@ -789,7 +777,6 @@ function showTransitionalResults(year, data) {
         document.getElementById('combo3').style.display = 'none';
     }
     
-    // Update form fields
     document.getElementById('formBirthYearTrans').value = year;
     document.getElementById('formCombinations').value = uniqueCombos.map(c => `${c.pluto}/${c.saturn}`).join('; ');
     
