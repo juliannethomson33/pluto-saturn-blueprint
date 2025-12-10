@@ -2,6 +2,7 @@
     /* Soft pastel palette with clarity */
     --bg-dark: #1e1e2e;
     --bg-card: #2a2a3d;
+    --header-bg: #2d2a4a;
     --pluto-soft: #c4b5fd;      /* soft lavender */
     --pluto-bg: rgba(196, 181, 253, 0.15);
     --pluto-border: rgba(196, 181, 253, 0.4);
@@ -37,9 +38,9 @@ body {
 
 /* Site Header */
 .site-header {
-    background: rgba(0, 0, 0, 0.2);
+    background: var(--header-bg);
     padding: 1rem 2rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .header-content {
@@ -52,20 +53,17 @@ body {
     gap: 1rem;
 }
 
-.logo-link {
-    text-decoration: none;
-}
-
 .site-logo {
     font-size: 1.3rem;
     font-weight: 600;
     color: var(--text-primary);
     letter-spacing: -0.02em;
-    transition: color 0.2s ease;
+    text-align: center;
+    flex: 1;
 }
 
-.logo-link:hover .site-logo {
-    color: var(--accent-yellow);
+.header-spacer {
+    width: 95px; /* Same width as YouTube button to center the logo */
 }
 
 .youtube-link {
@@ -106,19 +104,25 @@ body {
 }
 
 .page-title {
-    font-size: 2.2rem;
+    font-size: 2rem;
     font-weight: 700;
     margin-bottom: 0.75rem;
     color: var(--text-primary);
     letter-spacing: -0.03em;
+    transition: color 0.2s ease;
+}
+
+.page-title:hover {
+    color: var(--accent-coral);
 }
 
 .subtitle {
-    font-size: 1.05rem;
+    font-size: 1rem;
     color: var(--text-secondary);
-    max-width: 550px;
+    max-width: 600px;
     margin: 0 auto;
     font-weight: 400;
+    line-height: 1.7;
 }
 
 /* Year Selector */
@@ -157,17 +161,6 @@ body {
     background: var(--pluto-bg);
     border-color: var(--pluto-border);
     color: var(--text-primary);
-}
-
-.year-btn.transitional {
-    border-color: var(--accent-yellow-border);
-    background: var(--accent-yellow-bg);
-    color: var(--accent-yellow);
-}
-
-.year-btn.transitional:hover {
-    background: rgba(253, 230, 138, 0.25);
-    border-color: var(--accent-yellow);
 }
 
 .year-dropdown-container {
@@ -461,16 +454,27 @@ body {
         text-align: center;
     }
     
+    .header-spacer {
+        display: none;
+    }
+    
     .site-logo {
         font-size: 1.15rem;
+        order: -1;
+        flex-basis: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .youtube-link {
+        margin: 0 auto;
     }
     
     .page-title {
-        font-size: 1.7rem;
+        font-size: 1.5rem;
     }
     
     .subtitle {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
     }
     
     .container {
