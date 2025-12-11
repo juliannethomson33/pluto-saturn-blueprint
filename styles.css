@@ -1,25 +1,26 @@
 :root {
-    /* Soft pastel palette with clarity */
-    --bg-dark: #1e1e2e;
-    --bg-card: #2a2a3d;
-    --header-bg: #2d2a4a;
-    --pluto-soft: #c4b5fd;      /* soft lavender */
-    --pluto-bg: rgba(196, 181, 253, 0.15);
-    --pluto-border: rgba(196, 181, 253, 0.4);
-    --saturn-soft: #93c5fd;      /* soft sky blue */
-    --saturn-bg: rgba(147, 197, 253, 0.15);
-    --saturn-border: rgba(147, 197, 253, 0.4);
-    --accent-coral: #fca5a5;     /* soft coral */
-    --accent-mint: #86efac;      /* soft mint */
-    --accent-mint-bg: rgba(134, 239, 172, 0.15);
-    --accent-mint-border: rgba(134, 239, 172, 0.4);
-    --accent-yellow: #fde68a;    /* soft yellow */
-    --accent-yellow-bg: rgba(253, 230, 138, 0.12);
-    --accent-yellow-border: rgba(253, 230, 138, 0.35);
-    --text-primary: #f1f5f9;
-    --text-secondary: #94a3b8;
-    --text-muted: #64748b;
-    --youtube-red: #ef4444;
+    /* Bright, soft palette */
+    --bg-light: #f8f7ff;
+    --bg-card: #ffffff;
+    --header-bg: #e8e4f8;
+    --pluto-soft: #9f7aea;
+    --pluto-bg: rgba(159, 122, 234, 0.12);
+    --pluto-border: rgba(159, 122, 234, 0.35);
+    --saturn-soft: #4299e1;
+    --saturn-bg: rgba(66, 153, 225, 0.12);
+    --saturn-border: rgba(66, 153, 225, 0.35);
+    --accent-coral: #f56565;
+    --accent-mint: #38a169;
+    --accent-mint-bg: rgba(56, 161, 105, 0.12);
+    --accent-mint-border: rgba(56, 161, 105, 0.35);
+    --accent-yellow: #d69e2e;
+    --accent-yellow-bg: rgba(214, 158, 46, 0.12);
+    --accent-yellow-border: rgba(214, 158, 46, 0.35);
+    --text-primary: #2d3748;
+    --text-secondary: #4a5568;
+    --text-muted: #718096;
+    --youtube-red: #e53e3e;
+    --border-light: rgba(0, 0, 0, 0.08);
 }
 
 * {
@@ -30,7 +31,7 @@
 
 body {
     font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: linear-gradient(180deg, #1e1e2e 0%, #252536 100%);
+    background: var(--bg-light);
     min-height: 100vh;
     color: var(--text-primary);
     line-height: 1.6;
@@ -40,7 +41,7 @@ body {
 .site-header {
     background: var(--header-bg);
     padding: 1rem 2rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid var(--border-light);
 }
 
 .header-content {
@@ -63,18 +64,18 @@ body {
 }
 
 .header-spacer {
-    width: 95px; /* Same width as YouTube button to center the logo */
+    width: 95px;
 }
 
 .youtube-link {
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    color: var(--text-primary);
+    color: var(--youtube-red);
     text-decoration: none;
     padding: 0.5rem 1rem;
-    background: rgba(239, 68, 68, 0.15);
-    border: 1px solid rgba(239, 68, 68, 0.3);
+    background: rgba(229, 62, 62, 0.1);
+    border: 1px solid rgba(229, 62, 62, 0.25);
     transition: all 0.2s ease;
     font-size: 0.85rem;
     font-weight: 500;
@@ -83,6 +84,7 @@ body {
 .youtube-link:hover {
     background: var(--youtube-red);
     border-color: var(--youtube-red);
+    color: white;
 }
 
 .youtube-icon {
@@ -113,7 +115,7 @@ body {
 }
 
 .page-title:hover {
-    color: var(--accent-coral);
+    color: var(--pluto-soft);
 }
 
 .subtitle {
@@ -147,8 +149,8 @@ body {
 
 .year-btn {
     padding: 0.55rem 0.3rem;
-    border: 1px solid rgba(255,255,255,0.1);
-    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border-light);
+    background: white;
     color: var(--text-secondary);
     cursor: pointer;
     transition: all 0.15s ease;
@@ -160,7 +162,7 @@ body {
 .year-btn:hover {
     background: var(--pluto-bg);
     border-color: var(--pluto-border);
-    color: var(--text-primary);
+    color: var(--pluto-soft);
 }
 
 .year-dropdown-container {
@@ -177,17 +179,12 @@ body {
 #yearDropdown {
     padding: 0.7rem 1rem;
     font-size: 0.95rem;
-    border: 1px solid rgba(255,255,255,0.15);
-    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border-light);
+    background: white;
     color: var(--text-primary);
     cursor: pointer;
     font-family: inherit;
     min-width: 180px;
-}
-
-#yearDropdown option {
-    background: var(--bg-dark);
-    color: var(--text-primary);
 }
 
 /* Results Section */
@@ -204,7 +201,8 @@ body {
     background: var(--bg-card);
     padding: 2rem;
     margin-bottom: 1.5rem;
-    border: 1px solid rgba(255,255,255,0.06);
+    border: 1px solid var(--border-light);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .result-card h2 {
@@ -232,10 +230,10 @@ body {
 
 /* Combination Blocks for Transitional Years */
 .combination-block {
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--bg-light);
     padding: 1.25rem;
     margin-bottom: 1.25rem;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-light);
 }
 
 .combo-header {
@@ -327,11 +325,11 @@ body {
 
 /* CTA Section */
 .cta-section {
-    background: rgba(255,255,255,0.02);
+    background: var(--bg-light);
     padding: 1.75rem;
     text-align: center;
     margin-bottom: 1.25rem;
-    border: 1px solid rgba(255,255,255,0.06);
+    border: 1px solid var(--border-light);
 }
 
 .cta-section h3 {
@@ -367,8 +365,8 @@ body {
 .form-group input[type="email"] {
     flex: 1;
     padding: 0.85rem 1rem;
-    border: 1px solid rgba(255,255,255,0.15);
-    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border-light);
+    background: white;
     color: var(--text-primary);
     font-size: 0.95rem;
     font-family: inherit;
@@ -386,7 +384,7 @@ body {
 .form-group button {
     padding: 0.85rem 1.5rem;
     background: var(--accent-coral);
-    color: #1e1e2e;
+    color: white;
     border: none;
     font-weight: 600;
     cursor: pointer;
@@ -396,7 +394,7 @@ body {
 }
 
 .form-group button:hover {
-    background: #fecaca;
+    background: #e53e3e;
     transform: translateY(-1px);
 }
 
@@ -410,8 +408,8 @@ body {
     display: block;
     margin: 0 auto;
     padding: 0.7rem 1.25rem;
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.15);
+    background: white;
+    border: 1px solid var(--border-light);
     color: var(--text-secondary);
     cursor: pointer;
     transition: all 0.2s ease;
@@ -420,7 +418,7 @@ body {
 }
 
 .back-button:hover {
-    background: rgba(255,255,255,0.05);
+    background: var(--bg-light);
     color: var(--text-primary);
 }
 
@@ -430,8 +428,9 @@ body {
     padding: 2rem;
     color: var(--text-muted);
     font-size: 0.85rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid var(--border-light);
     margin-top: 2rem;
+    background: white;
 }
 
 .site-footer a {

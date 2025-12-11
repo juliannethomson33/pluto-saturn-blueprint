@@ -1,6 +1,6 @@
 // Pluto-Saturn Data (1900-2025)
 // Bright Side Astrology
-// All transitional years audited and corrected
+// All transitional years audited - no gaps, no overlaps
 
 const SIGN_KEYWORDS = {
     "Aries": "self",
@@ -17,13 +17,11 @@ const SIGN_KEYWORDS = {
     "Pisces": "the unknown"
 };
 
-// Year data with detailed transition information
-// All retrograde periods accounted for
 const YEAR_DATA = {
     1900: { 
         transitional: true,
         combos: [
-            { months: "Jan - Oct", pluto: "Gemini", saturn: "Sagittarius" },
+            { months: "Jan - Sep", pluto: "Gemini", saturn: "Sagittarius" },
             { months: "Oct - Dec", pluto: "Gemini", saturn: "Capricorn" }
         ]
     },
@@ -40,8 +38,8 @@ const YEAR_DATA = {
     1905: { 
         transitional: true,
         combos: [
-            { months: "Jan - Apr", pluto: "Gemini", saturn: "Aquarius" },
-            { months: "Apr - Aug", pluto: "Gemini", saturn: "Pisces" },
+            { months: "Jan - Mar", pluto: "Gemini", saturn: "Aquarius" },
+            { months: "Apr - Jul", pluto: "Gemini", saturn: "Pisces" },
             { months: "Aug - Dec", pluto: "Gemini", saturn: "Aquarius" }
         ]
     },
@@ -56,9 +54,9 @@ const YEAR_DATA = {
     1908: { 
         transitional: true,
         combos: [
-            { months: "Jan - Mar", pluto: "Gemini", saturn: "Pisces" },
-            { months: "Mar - Jun", pluto: "Gemini", saturn: "Aries" },
-            { months: "Jun - Oct", pluto: "Gemini", saturn: "Pisces" },
+            { months: "Jan - Feb", pluto: "Gemini", saturn: "Pisces" },
+            { months: "Mar - May", pluto: "Gemini", saturn: "Aries" },
+            { months: "Jun - Sep", pluto: "Gemini", saturn: "Pisces" },
             { months: "Oct - Dec", pluto: "Gemini", saturn: "Aries" }
         ]
     },
@@ -66,7 +64,7 @@ const YEAR_DATA = {
     1910: { 
         transitional: true,
         combos: [
-            { months: "Jan - May", pluto: "Gemini", saturn: "Aries" },
+            { months: "Jan - Apr", pluto: "Gemini", saturn: "Aries" },
             { months: "May - Dec", pluto: "Gemini", saturn: "Taurus" }
         ]
     },
@@ -74,24 +72,24 @@ const YEAR_DATA = {
     1912: { 
         transitional: true,
         combos: [
-            { months: "Jan - Jul", pluto: "Gemini", saturn: "Taurus" },
-            { months: "Jul - Nov", pluto: "Gemini", saturn: "Gemini" },
+            { months: "Jan - Jun", pluto: "Gemini", saturn: "Taurus" },
+            { months: "Jul - Oct", pluto: "Gemini", saturn: "Gemini" },
             { months: "Nov - Dec", pluto: "Gemini", saturn: "Taurus" }
         ]
     },
     1913: { 
         transitional: true,
         combos: [
-            { months: "Jan - Mar", pluto: "Gemini", saturn: "Taurus" },
-            { months: "Mar - Sep", pluto: "Gemini", saturn: "Gemini" },
+            { months: "Jan - Feb", pluto: "Gemini", saturn: "Taurus" },
+            { months: "Mar - Aug", pluto: "Gemini", saturn: "Gemini" },
             { months: "Sep - Dec", pluto: "Cancer", saturn: "Gemini" }
         ]
     },
     1914: { 
         transitional: true,
         combos: [
-            { months: "Jan - May", pluto: "Gemini", saturn: "Gemini" },
-            { months: "May - Aug", pluto: "Cancer", saturn: "Gemini" },
+            { months: "Jan - Apr", pluto: "Gemini", saturn: "Gemini" },
+            { months: "May - Jul", pluto: "Cancer", saturn: "Gemini" },
             { months: "Aug - Dec", pluto: "Cancer", saturn: "Cancer" }
         ]
     },
@@ -99,7 +97,7 @@ const YEAR_DATA = {
     1916: { 
         transitional: true,
         combos: [
-            { months: "Jan - Oct", pluto: "Cancer", saturn: "Cancer" },
+            { months: "Jan - Sep", pluto: "Cancer", saturn: "Cancer" },
             { months: "Oct - Dec", pluto: "Cancer", saturn: "Leo" }
         ]
     },
@@ -108,7 +106,7 @@ const YEAR_DATA = {
     1919: { 
         transitional: true,
         combos: [
-            { months: "Jan - Aug", pluto: "Cancer", saturn: "Leo" },
+            { months: "Jan - Jul", pluto: "Cancer", saturn: "Leo" },
             { months: "Aug - Dec", pluto: "Cancer", saturn: "Virgo" }
         ]
     },
@@ -116,7 +114,7 @@ const YEAR_DATA = {
     1921: { 
         transitional: true,
         combos: [
-            { months: "Jan - Oct", pluto: "Cancer", saturn: "Virgo" },
+            { months: "Jan - Sep", pluto: "Cancer", saturn: "Virgo" },
             { months: "Oct - Dec", pluto: "Cancer", saturn: "Libra" }
         ]
     },
@@ -124,15 +122,15 @@ const YEAR_DATA = {
     1923: { 
         transitional: true,
         combos: [
-            { months: "Jan - Dec", pluto: "Cancer", saturn: "Libra" },
+            { months: "Jan - Nov", pluto: "Cancer", saturn: "Libra" },
             { months: "Dec", pluto: "Cancer", saturn: "Scorpio" }
         ]
     },
     1924: { 
         transitional: true,
         combos: [
-            { months: "Jan - Apr", pluto: "Cancer", saturn: "Scorpio" },
-            { months: "Apr - Sep", pluto: "Cancer", saturn: "Libra" },
+            { months: "Jan - Mar", pluto: "Cancer", saturn: "Scorpio" },
+            { months: "Apr - Aug", pluto: "Cancer", saturn: "Libra" },
             { months: "Sep - Dec", pluto: "Cancer", saturn: "Scorpio" }
         ]
     },
@@ -140,7 +138,7 @@ const YEAR_DATA = {
     1926: { 
         transitional: true,
         combos: [
-            { months: "Jan - Dec", pluto: "Cancer", saturn: "Scorpio" },
+            { months: "Jan - Nov", pluto: "Cancer", saturn: "Scorpio" },
             { months: "Dec", pluto: "Cancer", saturn: "Sagittarius" }
         ]
     },
@@ -149,9 +147,9 @@ const YEAR_DATA = {
     1929: { 
         transitional: true,
         combos: [
-            { months: "Jan - Mar", pluto: "Cancer", saturn: "Sagittarius" },
-            { months: "Mar - May", pluto: "Cancer", saturn: "Capricorn" },
-            { months: "May - Nov", pluto: "Cancer", saturn: "Sagittarius" },
+            { months: "Jan - Feb", pluto: "Cancer", saturn: "Sagittarius" },
+            { months: "Mar - Apr", pluto: "Cancer", saturn: "Capricorn" },
+            { months: "May - Oct", pluto: "Cancer", saturn: "Sagittarius" },
             { months: "Nov - Dec", pluto: "Cancer", saturn: "Capricorn" }
         ]
     },
@@ -160,9 +158,9 @@ const YEAR_DATA = {
     1932: { 
         transitional: true,
         combos: [
-            { months: "Jan - Feb", pluto: "Cancer", saturn: "Capricorn" },
-            { months: "Feb - Aug", pluto: "Cancer", saturn: "Aquarius" },
-            { months: "Aug - Nov", pluto: "Cancer", saturn: "Capricorn" },
+            { months: "Jan", pluto: "Cancer", saturn: "Capricorn" },
+            { months: "Feb - Jul", pluto: "Cancer", saturn: "Aquarius" },
+            { months: "Aug - Oct", pluto: "Cancer", saturn: "Capricorn" },
             { months: "Nov - Dec", pluto: "Cancer", saturn: "Aquarius" }
         ]
     },
@@ -171,7 +169,7 @@ const YEAR_DATA = {
     1935: { 
         transitional: true,
         combos: [
-            { months: "Jan - Feb", pluto: "Cancer", saturn: "Aquarius" },
+            { months: "Jan", pluto: "Cancer", saturn: "Aquarius" },
             { months: "Feb - Dec", pluto: "Cancer", saturn: "Pisces" }
         ]
     },
@@ -179,32 +177,32 @@ const YEAR_DATA = {
     1937: { 
         transitional: true,
         combos: [
-            { months: "Jan - Apr", pluto: "Cancer", saturn: "Pisces" },
-            { months: "Apr - Oct", pluto: "Cancer", saturn: "Aries" },
+            { months: "Jan - Mar", pluto: "Cancer", saturn: "Pisces" },
+            { months: "Apr - Sep", pluto: "Cancer", saturn: "Aries" },
             { months: "Oct - Dec", pluto: "Leo", saturn: "Aries" }
         ]
     },
     1938: { 
         transitional: true,
         combos: [
-            { months: "Jan - Aug", pluto: "Cancer", saturn: "Aries" },
+            { months: "Jan - Jul", pluto: "Cancer", saturn: "Aries" },
             { months: "Aug - Dec", pluto: "Leo", saturn: "Aries" }
         ]
     },
     1939: { 
         transitional: true,
         combos: [
-            { months: "Jan - Feb", pluto: "Leo", saturn: "Aries" },
-            { months: "Feb - Jun", pluto: "Cancer", saturn: "Aries" },
-            { months: "Jun - Jul", pluto: "Leo", saturn: "Aries" },
-            { months: "Jul - Sep", pluto: "Leo", saturn: "Taurus" },
+            { months: "Jan", pluto: "Leo", saturn: "Aries" },
+            { months: "Feb - May", pluto: "Cancer", saturn: "Aries" },
+            { months: "Jun", pluto: "Leo", saturn: "Aries" },
+            { months: "Jul - Aug", pluto: "Leo", saturn: "Taurus" },
             { months: "Sep - Dec", pluto: "Leo", saturn: "Aries" }
         ]
     },
     1940: { 
         transitional: true,
         combos: [
-            { months: "Jan - Mar", pluto: "Leo", saturn: "Aries" },
+            { months: "Jan - Feb", pluto: "Leo", saturn: "Aries" },
             { months: "Mar - Dec", pluto: "Leo", saturn: "Taurus" }
         ]
     },
@@ -212,7 +210,7 @@ const YEAR_DATA = {
     1942: { 
         transitional: true,
         combos: [
-            { months: "Jan - May", pluto: "Leo", saturn: "Taurus" },
+            { months: "Jan - Apr", pluto: "Leo", saturn: "Taurus" },
             { months: "May - Dec", pluto: "Leo", saturn: "Gemini" }
         ]
     },
@@ -220,7 +218,7 @@ const YEAR_DATA = {
     1944: { 
         transitional: true,
         combos: [
-            { months: "Jan - Jun", pluto: "Leo", saturn: "Gemini" },
+            { months: "Jan - May", pluto: "Leo", saturn: "Gemini" },
             { months: "Jun - Dec", pluto: "Leo", saturn: "Cancer" }
         ]
     },
@@ -228,7 +226,7 @@ const YEAR_DATA = {
     1946: { 
         transitional: true,
         combos: [
-            { months: "Jan - Aug", pluto: "Leo", saturn: "Cancer" },
+            { months: "Jan - Jul", pluto: "Leo", saturn: "Cancer" },
             { months: "Aug - Dec", pluto: "Leo", saturn: "Leo" }
         ]
     },
@@ -236,30 +234,30 @@ const YEAR_DATA = {
     1948: { 
         transitional: true,
         combos: [
-            { months: "Jan - Sep", pluto: "Leo", saturn: "Leo" },
+            { months: "Jan - Aug", pluto: "Leo", saturn: "Leo" },
             { months: "Sep - Dec", pluto: "Leo", saturn: "Virgo" }
         ]
     },
     1949: { 
         transitional: true,
         combos: [
-            { months: "Jan - Apr", pluto: "Leo", saturn: "Virgo" },
-            { months: "Apr - May", pluto: "Leo", saturn: "Leo" },
+            { months: "Jan - Mar", pluto: "Leo", saturn: "Virgo" },
+            { months: "Apr", pluto: "Leo", saturn: "Leo" },
             { months: "May - Dec", pluto: "Leo", saturn: "Virgo" }
         ]
     },
     1950: { 
         transitional: true,
         combos: [
-            { months: "Jan - Nov", pluto: "Leo", saturn: "Virgo" },
+            { months: "Jan - Oct", pluto: "Leo", saturn: "Virgo" },
             { months: "Nov - Dec", pluto: "Leo", saturn: "Libra" }
         ]
     },
     1951: { 
         transitional: true,
         combos: [
-            { months: "Jan - Mar", pluto: "Leo", saturn: "Libra" },
-            { months: "Mar - Aug", pluto: "Leo", saturn: "Virgo" },
+            { months: "Jan - Feb", pluto: "Leo", saturn: "Libra" },
+            { months: "Mar - Jul", pluto: "Leo", saturn: "Virgo" },
             { months: "Aug - Dec", pluto: "Leo", saturn: "Libra" }
         ]
     },
@@ -267,7 +265,7 @@ const YEAR_DATA = {
     1953: { 
         transitional: true,
         combos: [
-            { months: "Jan - Oct", pluto: "Leo", saturn: "Libra" },
+            { months: "Jan - Sep", pluto: "Leo", saturn: "Libra" },
             { months: "Oct - Dec", pluto: "Leo", saturn: "Scorpio" }
         ]
     },
@@ -277,23 +275,23 @@ const YEAR_DATA = {
         transitional: true,
         combos: [
             { months: "Jan", pluto: "Leo", saturn: "Scorpio" },
-            { months: "Jan - May", pluto: "Leo", saturn: "Sagittarius" },
-            { months: "May - Oct", pluto: "Leo", saturn: "Scorpio" },
+            { months: "Feb - Apr", pluto: "Leo", saturn: "Sagittarius" },
+            { months: "May - Sep", pluto: "Leo", saturn: "Scorpio" },
             { months: "Oct - Dec", pluto: "Leo", saturn: "Sagittarius" }
         ]
     },
     1957: { 
         transitional: true,
         combos: [
-            { months: "Jan - Aug", pluto: "Leo", saturn: "Sagittarius" },
+            { months: "Jan - Jul", pluto: "Leo", saturn: "Sagittarius" },
             { months: "Aug - Dec", pluto: "Virgo", saturn: "Sagittarius" }
         ]
     },
     1958: { 
         transitional: true,
         combos: [
-            { months: "Jan - Apr", pluto: "Virgo", saturn: "Sagittarius" },
-            { months: "Apr - Jun", pluto: "Leo", saturn: "Sagittarius" },
+            { months: "Jan - Mar", pluto: "Virgo", saturn: "Sagittarius" },
+            { months: "Apr - May", pluto: "Leo", saturn: "Sagittarius" },
             { months: "Jun - Dec", pluto: "Virgo", saturn: "Sagittarius" }
         ]
     },
@@ -301,7 +299,7 @@ const YEAR_DATA = {
         transitional: true,
         combos: [
             { months: "Jan", pluto: "Virgo", saturn: "Sagittarius" },
-            { months: "Jan - Dec", pluto: "Virgo", saturn: "Capricorn" }
+            { months: "Feb - Dec", pluto: "Virgo", saturn: "Capricorn" }
         ]
     },
     1960: { transitional: false, pluto: "Virgo", saturn: "Capricorn" },
@@ -310,15 +308,15 @@ const YEAR_DATA = {
         transitional: true,
         combos: [
             { months: "Jan", pluto: "Virgo", saturn: "Capricorn" },
-            { months: "Jan - Dec", pluto: "Virgo", saturn: "Aquarius" }
+            { months: "Feb - Dec", pluto: "Virgo", saturn: "Aquarius" }
         ]
     },
     1963: { transitional: false, pluto: "Virgo", saturn: "Aquarius" },
     1964: { 
         transitional: true,
         combos: [
-            { months: "Jan - Mar", pluto: "Virgo", saturn: "Aquarius" },
-            { months: "Mar - Sep", pluto: "Virgo", saturn: "Pisces" },
+            { months: "Jan - Feb", pluto: "Virgo", saturn: "Aquarius" },
+            { months: "Mar - Aug", pluto: "Virgo", saturn: "Pisces" },
             { months: "Sep - Dec", pluto: "Virgo", saturn: "Aquarius" }
         ]
     },
@@ -333,7 +331,7 @@ const YEAR_DATA = {
     1967: { 
         transitional: true,
         combos: [
-            { months: "Jan - Mar", pluto: "Virgo", saturn: "Pisces" },
+            { months: "Jan - Feb", pluto: "Virgo", saturn: "Pisces" },
             { months: "Mar - Dec", pluto: "Virgo", saturn: "Aries" }
         ]
     },
@@ -341,7 +339,7 @@ const YEAR_DATA = {
     1969: { 
         transitional: true,
         combos: [
-            { months: "Jan - Apr", pluto: "Virgo", saturn: "Aries" },
+            { months: "Jan - Mar", pluto: "Virgo", saturn: "Aries" },
             { months: "Apr - Dec", pluto: "Virgo", saturn: "Taurus" }
         ]
     },
@@ -349,58 +347,58 @@ const YEAR_DATA = {
     1971: { 
         transitional: true,
         combos: [
-            { months: "Jan - Jun", pluto: "Virgo", saturn: "Taurus" },
-            { months: "Jun - Oct", pluto: "Virgo", saturn: "Gemini" },
+            { months: "Jan - May", pluto: "Virgo", saturn: "Taurus" },
+            { months: "Jun - Sep", pluto: "Virgo", saturn: "Gemini" },
             { months: "Oct - Dec", pluto: "Libra", saturn: "Gemini" }
         ]
     },
     1972: { 
         transitional: true,
         combos: [
-            { months: "Jan - Feb", pluto: "Libra", saturn: "Taurus" },
-            { months: "Feb - Jul", pluto: "Libra", saturn: "Gemini" },
+            { months: "Jan", pluto: "Libra", saturn: "Taurus" },
+            { months: "Feb - Jun", pluto: "Libra", saturn: "Gemini" },
             { months: "Jul - Dec", pluto: "Libra", saturn: "Gemini" }
         ]
     },
     1973: { 
         transitional: true,
         combos: [
-            { months: "Jan - Aug", pluto: "Libra", saturn: "Gemini" },
+            { months: "Jan - Jul", pluto: "Libra", saturn: "Gemini" },
             { months: "Aug - Dec", pluto: "Libra", saturn: "Cancer" }
         ]
     },
     1974: { 
         transitional: true,
         combos: [
-            { months: "Jan - Apr", pluto: "Libra", saturn: "Gemini" },
+            { months: "Jan - Mar", pluto: "Libra", saturn: "Gemini" },
             { months: "Apr - Dec", pluto: "Libra", saturn: "Cancer" }
         ]
     },
     1975: { 
         transitional: true,
         combos: [
-            { months: "Jan - Sep", pluto: "Libra", saturn: "Cancer" },
+            { months: "Jan - Aug", pluto: "Libra", saturn: "Cancer" },
             { months: "Sep - Dec", pluto: "Libra", saturn: "Leo" }
         ]
     },
     1976: { 
         transitional: true,
         combos: [
-            { months: "Jan - Jun", pluto: "Libra", saturn: "Cancer" },
+            { months: "Jan - May", pluto: "Libra", saturn: "Cancer" },
             { months: "Jun - Dec", pluto: "Libra", saturn: "Leo" }
         ]
     },
     1977: { 
         transitional: true,
         combos: [
-            { months: "Jan - Nov", pluto: "Libra", saturn: "Leo" },
+            { months: "Jan - Oct", pluto: "Libra", saturn: "Leo" },
             { months: "Nov - Dec", pluto: "Libra", saturn: "Virgo" }
         ]
     },
     1978: { 
         transitional: true,
         combos: [
-            { months: "Jan - Jul", pluto: "Libra", saturn: "Leo" },
+            { months: "Jan - Jun", pluto: "Libra", saturn: "Leo" },
             { months: "Jul - Dec", pluto: "Libra", saturn: "Virgo" }
         ]
     },
@@ -408,7 +406,7 @@ const YEAR_DATA = {
     1980: { 
         transitional: true,
         combos: [
-            { months: "Jan - Sep", pluto: "Libra", saturn: "Virgo" },
+            { months: "Jan - Aug", pluto: "Libra", saturn: "Virgo" },
             { months: "Sep - Dec", pluto: "Libra", saturn: "Libra" }
         ]
     },
@@ -416,31 +414,31 @@ const YEAR_DATA = {
     1982: { 
         transitional: true,
         combos: [
-            { months: "Jan - Nov", pluto: "Libra", saturn: "Libra" },
+            { months: "Jan - Oct", pluto: "Libra", saturn: "Libra" },
             { months: "Nov - Dec", pluto: "Libra", saturn: "Scorpio" }
         ]
     },
     1983: { 
         transitional: true,
         combos: [
-            { months: "Jan - May", pluto: "Libra", saturn: "Scorpio" },
-            { months: "May - Aug", pluto: "Libra", saturn: "Libra" },
-            { months: "Aug - Nov", pluto: "Libra", saturn: "Scorpio" },
+            { months: "Jan - Apr", pluto: "Libra", saturn: "Scorpio" },
+            { months: "May - Jul", pluto: "Libra", saturn: "Libra" },
+            { months: "Aug - Oct", pluto: "Libra", saturn: "Scorpio" },
             { months: "Nov - Dec", pluto: "Scorpio", saturn: "Scorpio" }
         ]
     },
     1984: { 
         transitional: true,
         combos: [
-            { months: "Jan - May", pluto: "Scorpio", saturn: "Scorpio" },
-            { months: "May - Aug", pluto: "Libra", saturn: "Scorpio" },
+            { months: "Jan - Apr", pluto: "Scorpio", saturn: "Scorpio" },
+            { months: "May - Jul", pluto: "Libra", saturn: "Scorpio" },
             { months: "Aug - Dec", pluto: "Scorpio", saturn: "Scorpio" }
         ]
     },
     1985: { 
         transitional: true,
         combos: [
-            { months: "Jan - Nov", pluto: "Scorpio", saturn: "Scorpio" },
+            { months: "Jan - Oct", pluto: "Scorpio", saturn: "Scorpio" },
             { months: "Nov - Dec", pluto: "Scorpio", saturn: "Sagittarius" }
         ]
     },
@@ -449,9 +447,9 @@ const YEAR_DATA = {
     1988: { 
         transitional: true,
         combos: [
-            { months: "Jan - Feb", pluto: "Scorpio", saturn: "Sagittarius" },
-            { months: "Feb - Jun", pluto: "Scorpio", saturn: "Capricorn" },
-            { months: "Jun - Nov", pluto: "Scorpio", saturn: "Sagittarius" },
+            { months: "Jan", pluto: "Scorpio", saturn: "Sagittarius" },
+            { months: "Feb - May", pluto: "Scorpio", saturn: "Capricorn" },
+            { months: "Jun - Oct", pluto: "Scorpio", saturn: "Sagittarius" },
             { months: "Nov - Dec", pluto: "Scorpio", saturn: "Capricorn" }
         ]
     },
@@ -460,7 +458,7 @@ const YEAR_DATA = {
     1991: { 
         transitional: true,
         combos: [
-            { months: "Jan - Feb", pluto: "Scorpio", saturn: "Capricorn" },
+            { months: "Jan", pluto: "Scorpio", saturn: "Capricorn" },
             { months: "Feb - Dec", pluto: "Scorpio", saturn: "Aquarius" }
         ]
     },
@@ -468,7 +466,7 @@ const YEAR_DATA = {
     1993: { 
         transitional: true,
         combos: [
-            { months: "Jan - May", pluto: "Scorpio", saturn: "Aquarius" },
+            { months: "Jan - Apr", pluto: "Scorpio", saturn: "Aquarius" },
             { months: "May - Jun", pluto: "Scorpio", saturn: "Pisces" },
             { months: "Jul - Dec", pluto: "Scorpio", saturn: "Aquarius" }
         ]
@@ -483,15 +481,15 @@ const YEAR_DATA = {
     1995: { 
         transitional: true,
         combos: [
-            { months: "Jan - Apr", pluto: "Scorpio", saturn: "Pisces" },
-            { months: "Apr - Nov", pluto: "Sagittarius", saturn: "Pisces" },
+            { months: "Jan - Mar", pluto: "Scorpio", saturn: "Pisces" },
+            { months: "Apr - Oct", pluto: "Sagittarius", saturn: "Pisces" },
             { months: "Nov - Dec", pluto: "Scorpio", saturn: "Pisces" }
         ]
     },
     1996: { 
         transitional: true,
         combos: [
-            { months: "Jan - Apr", pluto: "Sagittarius", saturn: "Pisces" },
+            { months: "Jan - Mar", pluto: "Sagittarius", saturn: "Pisces" },
             { months: "Apr - Dec", pluto: "Sagittarius", saturn: "Aries" }
         ]
     },
@@ -499,8 +497,8 @@ const YEAR_DATA = {
     1998: { 
         transitional: true,
         combos: [
-            { months: "Jan - Jun", pluto: "Sagittarius", saturn: "Aries" },
-            { months: "Jun - Oct", pluto: "Sagittarius", saturn: "Taurus" },
+            { months: "Jan - May", pluto: "Sagittarius", saturn: "Aries" },
+            { months: "Jun - Sep", pluto: "Sagittarius", saturn: "Taurus" },
             { months: "Oct - Dec", pluto: "Sagittarius", saturn: "Aries" }
         ]
     },
@@ -514,15 +512,15 @@ const YEAR_DATA = {
     2000: { 
         transitional: true,
         combos: [
-            { months: "Jan - Aug", pluto: "Sagittarius", saturn: "Taurus" },
-            { months: "Aug - Oct", pluto: "Sagittarius", saturn: "Gemini" },
+            { months: "Jan - Jul", pluto: "Sagittarius", saturn: "Taurus" },
+            { months: "Aug - Sep", pluto: "Sagittarius", saturn: "Gemini" },
             { months: "Oct - Dec", pluto: "Sagittarius", saturn: "Taurus" }
         ]
     },
     2001: { 
         transitional: true,
         combos: [
-            { months: "Jan - Apr", pluto: "Sagittarius", saturn: "Taurus" },
+            { months: "Jan - Mar", pluto: "Sagittarius", saturn: "Taurus" },
             { months: "Apr - Dec", pluto: "Sagittarius", saturn: "Gemini" }
         ]
     },
@@ -530,7 +528,7 @@ const YEAR_DATA = {
     2003: { 
         transitional: true,
         combos: [
-            { months: "Jan - Jun", pluto: "Sagittarius", saturn: "Gemini" },
+            { months: "Jan - May", pluto: "Sagittarius", saturn: "Gemini" },
             { months: "Jun - Dec", pluto: "Sagittarius", saturn: "Cancer" }
         ]
     },
@@ -538,7 +536,7 @@ const YEAR_DATA = {
     2005: { 
         transitional: true,
         combos: [
-            { months: "Jan - Jul", pluto: "Sagittarius", saturn: "Cancer" },
+            { months: "Jan - Jun", pluto: "Sagittarius", saturn: "Cancer" },
             { months: "Jul - Dec", pluto: "Sagittarius", saturn: "Leo" }
         ]
     },
@@ -546,30 +544,30 @@ const YEAR_DATA = {
     2007: { 
         transitional: true,
         combos: [
-            { months: "Jan - Sep", pluto: "Sagittarius", saturn: "Leo" },
+            { months: "Jan - Aug", pluto: "Sagittarius", saturn: "Leo" },
             { months: "Sep - Dec", pluto: "Sagittarius", saturn: "Virgo" }
         ]
     },
     2008: { 
         transitional: true,
         combos: [
-            { months: "Jan - Jun", pluto: "Capricorn", saturn: "Virgo" },
-            { months: "Jun - Nov", pluto: "Sagittarius", saturn: "Virgo" },
+            { months: "Jan - May", pluto: "Capricorn", saturn: "Virgo" },
+            { months: "Jun - Oct", pluto: "Sagittarius", saturn: "Virgo" },
             { months: "Nov - Dec", pluto: "Capricorn", saturn: "Virgo" }
         ]
     },
     2009: { 
         transitional: true,
         combos: [
-            { months: "Jan - Oct", pluto: "Capricorn", saturn: "Virgo" },
+            { months: "Jan - Sep", pluto: "Capricorn", saturn: "Virgo" },
             { months: "Oct - Dec", pluto: "Capricorn", saturn: "Libra" }
         ]
     },
     2010: { 
         transitional: true,
         combos: [
-            { months: "Jan - Apr", pluto: "Capricorn", saturn: "Libra" },
-            { months: "Apr - Jul", pluto: "Capricorn", saturn: "Virgo" },
+            { months: "Jan - Mar", pluto: "Capricorn", saturn: "Libra" },
+            { months: "Apr - Jun", pluto: "Capricorn", saturn: "Virgo" },
             { months: "Jul - Dec", pluto: "Capricorn", saturn: "Libra" }
         ]
     },
@@ -577,7 +575,7 @@ const YEAR_DATA = {
     2012: { 
         transitional: true,
         combos: [
-            { months: "Jan - Oct", pluto: "Capricorn", saturn: "Libra" },
+            { months: "Jan - Sep", pluto: "Capricorn", saturn: "Libra" },
             { months: "Oct - Dec", pluto: "Capricorn", saturn: "Scorpio" }
         ]
     },
@@ -585,15 +583,15 @@ const YEAR_DATA = {
     2014: { 
         transitional: true,
         combos: [
-            { months: "Jan - Dec", pluto: "Capricorn", saturn: "Scorpio" },
+            { months: "Jan - Nov", pluto: "Capricorn", saturn: "Scorpio" },
             { months: "Dec", pluto: "Capricorn", saturn: "Sagittarius" }
         ]
     },
     2015: { 
         transitional: true,
         combos: [
-            { months: "Jan - Jun", pluto: "Capricorn", saturn: "Sagittarius" },
-            { months: "Jun - Sep", pluto: "Capricorn", saturn: "Scorpio" },
+            { months: "Jan - May", pluto: "Capricorn", saturn: "Sagittarius" },
+            { months: "Jun - Aug", pluto: "Capricorn", saturn: "Scorpio" },
             { months: "Sep - Dec", pluto: "Capricorn", saturn: "Sagittarius" }
         ]
     },
@@ -601,7 +599,7 @@ const YEAR_DATA = {
     2017: { 
         transitional: true,
         combos: [
-            { months: "Jan - Dec", pluto: "Capricorn", saturn: "Sagittarius" },
+            { months: "Jan - Nov", pluto: "Capricorn", saturn: "Sagittarius" },
             { months: "Dec", pluto: "Capricorn", saturn: "Capricorn" }
         ]
     },
@@ -610,8 +608,8 @@ const YEAR_DATA = {
     2020: { 
         transitional: true,
         combos: [
-            { months: "Jan - Mar", pluto: "Capricorn", saturn: "Capricorn" },
-            { months: "Mar - Jul", pluto: "Capricorn", saturn: "Aquarius" },
+            { months: "Jan - Feb", pluto: "Capricorn", saturn: "Capricorn" },
+            { months: "Mar - Jun", pluto: "Capricorn", saturn: "Aquarius" },
             { months: "Jul - Dec", pluto: "Capricorn", saturn: "Capricorn" }
         ]
     },
@@ -626,24 +624,24 @@ const YEAR_DATA = {
     2023: { 
         transitional: true,
         combos: [
-            { months: "Jan - Mar", pluto: "Capricorn", saturn: "Aquarius" },
-            { months: "Mar - Jun", pluto: "Aquarius", saturn: "Pisces" },
+            { months: "Jan - Feb", pluto: "Capricorn", saturn: "Aquarius" },
+            { months: "Mar - May", pluto: "Aquarius", saturn: "Pisces" },
             { months: "Jun - Dec", pluto: "Capricorn", saturn: "Pisces" }
         ]
     },
     2024: { 
         transitional: true,
         combos: [
-            { months: "Jan - Sep", pluto: "Aquarius", saturn: "Pisces" },
-            { months: "Sep - Nov", pluto: "Capricorn", saturn: "Pisces" },
+            { months: "Jan - Aug", pluto: "Aquarius", saturn: "Pisces" },
+            { months: "Sep - Oct", pluto: "Capricorn", saturn: "Pisces" },
             { months: "Nov - Dec", pluto: "Aquarius", saturn: "Pisces" }
         ]
     },
     2025: { 
         transitional: true,
         combos: [
-            { months: "Jan - May", pluto: "Aquarius", saturn: "Pisces" },
-            { months: "May - Sep", pluto: "Aquarius", saturn: "Aries" },
+            { months: "Jan - Apr", pluto: "Aquarius", saturn: "Pisces" },
+            { months: "May - Aug", pluto: "Aquarius", saturn: "Aries" },
             { months: "Sep - Dec", pluto: "Aquarius", saturn: "Pisces" }
         ]
     }
