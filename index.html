@@ -66,9 +66,16 @@
                 <h3>Want to Go Deeper?</h3>
                 <p>Receive a free 66-page PDF guide covering all Pluto-Saturn combinations—find yours and explore the themes, connections, and what each pairing reflects about life.</p>
                 
-                <div class="kit-form-container">
-                    <script async data-uid="23e235ea2f" src="https://brightsideastrology.kit.com/23e235ea2f/index.js"></script>
-                </div>
+                <form name="signup" method="POST" data-netlify="true" class="email-form">
+                    <input type="hidden" name="birth-year" id="formBirthYear">
+                    <input type="hidden" name="pluto-sign" id="formPlutoSign">
+                    <input type="hidden" name="saturn-sign" id="formSaturnSign">
+                    
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Enter your email" required>
+                        <button type="submit">Send Me the Guide</button>
+                    </div>
+                </form>
                 
                 <p class="bonus-text">
                     Plus, you'll get the chance to book a free 15-minute intro chat to talk through your results.
@@ -148,9 +155,15 @@
                 <h3>Want to Go Deeper?</h3>
                 <p>Receive a free 66-page PDF guide covering all Pluto-Saturn combinations—find yours and explore the themes, connections, and what each pairing reflects about life.</p>
                 
-                <div class="kit-form-container">
-                    <script async data-uid="23e235ea2f" src="https://brightsideastrology.kit.com/23e235ea2f/index.js"></script>
-                </div>
+                <form name="signup-trans" method="POST" data-netlify="true" class="email-form">
+                    <input type="hidden" name="birth-year" id="formBirthYearTrans">
+                    <input type="hidden" name="combinations" id="formCombinations">
+                    
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Enter your email" required>
+                        <button type="submit">Send Me the Guide</button>
+                    </div>
+                </form>
                 
                 <p class="bonus-text">
                     Plus, you'll get the chance to book a free 15-minute intro chat to talk through your results.
